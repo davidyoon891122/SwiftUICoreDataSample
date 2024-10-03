@@ -7,20 +7,19 @@
 
 import SwiftUI
 import CoreData
+import ComposableArchitecture
 
 struct ContentView: View {
 
-    @Environment(\.managedObjectContext) private var context
 
     var body: some View {
-//        UserView(viewModel: UserViewModel(viewContext: context))
-        VStack {
-            
+        WithPerceptionTracking {
+            UserListView(store: TCACoreDataSampleApp.store)
         }
     }
 
 }
 
 #Preview {
-//    ContentView().environment(\.managedObjectContext, CorePersistenceController.preview.container.viewContext)
+    ContentView()
 }

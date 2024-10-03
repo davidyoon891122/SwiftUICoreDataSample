@@ -50,11 +50,13 @@ struct UserView: View {
     let store: StoreOf<UserFeature>
 
     var body: some View {
-        VStack {
-            HStack {
-                Text(store.name)
-                Spacer()
-                Text("\(store.age)")
+        WithPerceptionTracking {
+            VStack {
+                HStack {
+                    Text(store.name)
+                    Spacer()
+                    Text("\(store.age)")
+                }
             }
         }
     }

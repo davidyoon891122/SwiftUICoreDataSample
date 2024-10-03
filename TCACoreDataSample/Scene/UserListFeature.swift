@@ -18,8 +18,10 @@ struct UserListFeature {
 
     enum Action {
         case onAppear
+        case didTapAddUserButton
         case user(id: UserFeature.State.ID, action: UserFeature.Action)
         case getAllUsers(TaskResult<[UserFeature.State]>)
+        case userAddResponse(TaskResult<UserAddResponse>)
     }
 
     @Dependency(\.userClient) var userClient
@@ -41,8 +43,29 @@ struct UserListFeature {
             case .getAllUsers(.success(let users)):
                 state.users = IdentifiedArrayOf(uniqueElements: users)
                 return .none
-            case .getAllUsers(.failure):
+            case .getAllUsers(.failure), .userAddResponse(.failure(_)):
                 return .none
+            case .didTapAddUserButton:
+                return .run { send in
+                    let response = try userClient.add(UserFeature.State(name: "David", age: 36))
+                    await send(.userAddResponse(.success(response)))
+                }
+            case .userAddResponse(.success(let response)):
+                guard let addedUser = response.addedUser else {
+                    return .none
+                }
+
+                state.users.insert(addedUser, at: 0)
+
+                return .run { send in
+                    do {
+                        let users = try userClient.all()
+                        await send(.getAllUsers(.success(users)))
+                    } catch {
+                        await send(.getAllUsers(.failure(error)))
+                    }
+                }
+
             }
         }
     }
@@ -55,15 +78,33 @@ struct UserListView: View {
     let store: StoreOf<UserListFeature>
 
     var body: some View {
-        VStack {
-            List {
-                ForEachStore(store.scope(state: \.users, action: UserListFeature.Action.user(id: action:))) { store in
-                    UserView(store: store)
+        WithPerceptionTracking {
+            NavigationStack {
+                VStack {
+                    List {
+                        ForEachStore(store.scope(state: \.users, action: UserListFeature.Action.user(id: action:))) { store in
+                            UserView(store: store)
+                        }
+                    }
+                }
+                .onAppear {
+                    store.send(.onAppear)
+                }
+                .navigationTitle("UserList")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        EditButton()
+                    }
+
+                    ToolbarItem {
+                        Button(action: {
+                            store.send(.didTapAddUserButton)
+                        }, label: {
+                            Text("Add")
+                        })
+                    }
                 }
             }
-        }
-        .onAppear {
-            store.send(.onAppear)
         }
     }
 }

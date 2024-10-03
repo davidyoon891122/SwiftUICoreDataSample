@@ -6,15 +6,20 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct TCACoreDataSampleApp: App {
-    //let persistenceController = CorePersistenceController.shared
+
+    static let store = Store(initialState: UserListFeature.State()) {
+        UserListFeature()
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                //.environment(\.managedObjectContext, persistenceController.container.viewContext)
+            WithPerceptionTracking {
+                ContentView()
+            }
         }
     }
 }
