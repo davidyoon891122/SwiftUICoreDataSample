@@ -10,8 +10,10 @@ import CoreData
 
 struct ContentView: View {
 
+    @Environment(\.managedObjectContext) private var context
+
     var body: some View {
-        UserView()
+        UserView(viewModel: UserViewModel(viewContext: context))
     }
 
 }
