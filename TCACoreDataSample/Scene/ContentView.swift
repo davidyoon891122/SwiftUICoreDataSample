@@ -13,11 +13,14 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var context
 
     var body: some View {
-        UserView(viewModel: UserViewModel(viewContext: context))
+//        UserView(viewModel: UserViewModel(viewContext: context))
+        VStack {
+            
+        }
     }
 
 }
 
 #Preview {
-    ContentView().environment(\.managedObjectContext, CorePersistenceController.preview.container.viewContext)
+//    ContentView().environment(\.managedObjectContext, CorePersistenceController.preview.container.viewContext)
 }

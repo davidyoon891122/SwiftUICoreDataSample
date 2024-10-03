@@ -18,3 +18,15 @@ public class User: NSManagedObject {
     }
 
 }
+
+extension User {
+
+    static func instance(from user: UserFeature.State, with context: NSManagedObjectContext) -> User {
+        let newUserItem = User(context: context)
+        newUserItem.name = user.name
+        newUserItem.age = Int64(user.age)
+
+        return newUserItem
+    }
+
+}
