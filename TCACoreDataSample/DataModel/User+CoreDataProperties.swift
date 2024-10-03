@@ -17,8 +17,8 @@ extension User {
     }
 
     @NSManaged public var age: Int64
-    @NSManaged public var id: UUID?
-    @NSManaged public var name: String?
+    @NSManaged public var id: UUID
+    @NSManaged public var name: String
 
 }
 
