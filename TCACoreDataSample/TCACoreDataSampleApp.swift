@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct TCACoreDataSampleApp: App {
-    let persistenceController = PersistenceController.shared
+    let persistenceController = CorePersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
