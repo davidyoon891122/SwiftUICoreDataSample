@@ -22,6 +22,8 @@ struct UserListFeature {
         case user(id: UserFeature.State.ID, action: UserFeature.Action)
         case getAllUsers(TaskResult<[UserFeature.State]>)
         case userAddResponse(TaskResult<UserAddResponse>)
+        case userDeleteResponse(TaskResult<UserRemoveResponse>)
+        case deleteUser(IndexSet)
     }
 
     @Dependency(\.userClient) var userClient
@@ -43,7 +45,7 @@ struct UserListFeature {
             case .getAllUsers(.success(let users)):
                 state.users = IdentifiedArrayOf(uniqueElements: users)
                 return .none
-            case .getAllUsers(.failure), .userAddResponse(.failure(_)):
+            case .getAllUsers(.failure), .userAddResponse(.failure(_)), .userDeleteResponse(.failure(_)):
                 return .none
             case .didTapAddUserButton:
                 return .run { send in
@@ -65,6 +67,35 @@ struct UserListFeature {
                         await send(.getAllUsers(.failure(error)))
                     }
                 }
+            case .deleteUser(let indexSet):
+                let currentUsers = state.users
+                var users: [UserFeature.State] = []
+
+                for index in indexSet {
+                    users.append(currentUsers[index])
+                }
+
+                let removedUsers = users
+
+                return .run { send in
+                    do {
+                        let response = try userClient.remove(removedUsers)
+                        await send(.userDeleteResponse(.success(response)))
+                    } catch {
+                        await send(.userDeleteResponse(.failure(error)))
+                    }
+                }
+            case .userDeleteResponse(.success(let response)):
+                let removedIds = response.removedUser.map { $0.id }
+                removedIds.forEach { id in
+                    state.users.remove(id: id)
+                }
+
+                let users = state.users.elements
+
+                return .run { send in
+                    await send(.getAllUsers(.success(users)))
+                }
 
             }
         }
@@ -84,6 +115,9 @@ struct UserListView: View {
                     List {
                         ForEachStore(store.scope(state: \.users, action: \.user)) { store in
                             UserView(store: store)
+                        }
+                        .onDelete { indexSet in
+                            store.send(.deleteUser(indexSet))
                         }
                     }
                 }
