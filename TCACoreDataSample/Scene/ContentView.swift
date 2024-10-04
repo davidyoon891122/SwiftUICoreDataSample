@@ -11,7 +11,6 @@ import ComposableArchitecture
 
 struct ContentView: View {
 
-
     var body: some View {
         WithPerceptionTracking {
             UserListView(store: TCACoreDataSampleApp.store)

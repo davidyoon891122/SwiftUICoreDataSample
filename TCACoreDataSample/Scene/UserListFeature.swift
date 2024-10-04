@@ -82,7 +82,7 @@ struct UserListView: View {
             NavigationStack {
                 VStack {
                     List {
-                        ForEachStore(store.scope(state: \.users, action: UserListFeature.Action.user(id: action:))) { store in
+                        ForEachStore(store.scope(state: \.users, action: \.user)) { store in
                             UserView(store: store)
                         }
                     }
