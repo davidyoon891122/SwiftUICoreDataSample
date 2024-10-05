@@ -11,7 +11,7 @@ final class CoreData {
 
     static let shared = CoreData()
 
-    lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: Constants.dbName)
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
