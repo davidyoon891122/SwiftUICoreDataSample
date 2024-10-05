@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A335" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="WeeklyWorkoutProgram" representedClassName="WeeklyWorkoutProgram" syncable="YES" codeGenerationType="class">
+    <entity name="WeeklyWorkoutProgramEntity" representedClassName="WeeklyWorkoutProgramEntity" syncable="YES" codeGenerationType="class">
         <attribute name="expectedMinutes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="maxExpectedCalories" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="minExpectedCalories" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subTitle" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
-        <relationship name="workOutInfos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutInfo"/>
+        <relationship name="workOutInfos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutInfoEntity"/>
     </entity>
     <entity name="WodInfoEntity" representedClassName="WodInfoEntity" syncable="YES" codeGenerationType="class">
         <attribute name="level" optional="YES" attributeType="String"/>
         <attribute name="methodType" optional="YES" attributeType="String"/>
-        <relationship name="weeklyWorkoutProgram" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeeklyWorkoutProgram"/>
+        <relationship name="weeklyWorkoutProgram" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeeklyWorkoutProgramEntity"/>
     </entity>
-    <entity name="WodSet" representedClassName="WodSet" syncable="YES" codeGenerationType="class">
+    <entity name="WodSetEntity" representedClassName="WodSetEntity" syncable="YES" codeGenerationType="class">
         <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="unitValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="WorkOutInfo" representedClassName="WorkOutInfo" syncable="YES" codeGenerationType="class">
+    <entity name="WorkOutInfoEntity" representedClassName="WorkOutInfoEntity" syncable="YES" codeGenerationType="class">
         <attribute name="type" optional="YES" attributeType="String"/>
-        <relationship name="workOutItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutItem"/>
+        <relationship name="workOutItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutItemEntity"/>
     </entity>
-    <entity name="WorkOutItem" representedClassName="WorkOutItem" syncable="YES" codeGenerationType="class">
+    <entity name="WorkOutItemEntity" representedClassName="WorkOutItemEntity" syncable="YES" codeGenerationType="class">
         <attribute name="set" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subTitle" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
         <attribute name="unitValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="wodSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WodSet"/>
+        <relationship name="wodSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WodSetEntity"/>
     </entity>
 </model>
