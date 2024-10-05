@@ -10,6 +10,11 @@ import Foundation
 struct WodSetModel: Equatable {
 
     let unitValue: Int
-    let inCompleted: Bool
+    let isCompleted: Bool
+
+    init(entity: WodSetEntity) {
+        self.unitValue = Int(entity.unitValue)
+        self.isCompleted = entity.isCompleted
+    }
 
 }

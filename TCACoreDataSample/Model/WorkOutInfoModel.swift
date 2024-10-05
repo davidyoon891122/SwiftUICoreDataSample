@@ -12,4 +12,11 @@ struct WorkOutInfoModel: Equatable {
     let type: String
     let workOutItems: [WorkOutItemModel]
 
+    init(entity: WorkOutInfoEntity) {
+        self.type = entity.type
+        self.workOutItems = entity.workOutItem.map {
+            WorkOutItemModel(entity: $0 as! WorkOutItemEntity)
+        }
+    }
+
 }
