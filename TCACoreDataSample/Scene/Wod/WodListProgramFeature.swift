@@ -86,31 +86,33 @@ struct WodListProgramView: View {
     @Perception.Bindable var store: StoreOf<WodListProgramFeature>
 
     var body: some View {
-        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-            VStack {
-                Button(action: {
-                    store.send(.didTapAddProgramButton)
-                }, label: {
-                    Text("새로운 프로그램 추가하기")
-                        .frame(maxWidth: .infinity, minHeight: 56)
-                        .background(.yellow)
-                        .foregroundStyle(.black)
-                })
-                .padding()
-                List {
-                    ForEachStore(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { programStore in
-                        WodProgramView(store: programStore)
-                            .onTapGesture {
-                                store.send(.didTapProgramView(programStore.workoutProgramModel.id))
-                            }
+        WithPerceptionTracking {
+            NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+                VStack {
+                    Button(action: {
+                        store.send(.didTapAddProgramButton)
+                    }, label: {
+                        Text("새로운 프로그램 추가하기")
+                            .frame(maxWidth: .infinity, minHeight: 56)
+                            .background(.yellow)
+                            .foregroundStyle(.black)
+                    })
+                    .padding()
+                    List {
+                        ForEachStore(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { programStore in
+                            WodProgramView(store: programStore)
+                                .onTapGesture {
+                                    store.send(.didTapProgramView(programStore.workoutProgramModel.id))
+                                }
+                        }
                     }
                 }
+                .onAppear {
+                    store.send(.onAppear)
+                }
+            } destination: { store in
+                WodListView(store: store)
             }
-            .onAppear {
-                store.send(.onAppear)
-            }
-        } destination: { store in
-            WodListView(store: store)
         }
     }
 
