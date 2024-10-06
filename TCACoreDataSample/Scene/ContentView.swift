@@ -13,7 +13,8 @@ struct ContentView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            UserListView(store: TCACoreDataSampleApp.store)
+//            UserListView(store: TCACoreDataSampleApp.store)
+            WodListProgramView(store: TCACoreDataSampleApp.wodStore)
         }
     }
 

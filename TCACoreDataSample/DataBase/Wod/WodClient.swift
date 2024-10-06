@@ -10,12 +10,15 @@ import ComposableArchitecture
 
 struct WodClient {
     var wodPrograms: () throws -> [WodProgramFeature.State]
+    var addWodProgram: () throws -> AddWodInfoEntityResponse
 }
 
 extension WodClient: DependencyKey {
 
     static let liveValue = Self(wodPrograms: {
         try WodCoreDataProvider.shared.getWodProgramStates()
+    }, addWodProgram: {
+        try WodCoreDataProvider.shared.addWodInfoEntity()
     })
 
 }
@@ -27,4 +30,8 @@ extension DependencyValues {
         set { self[WodClient.self] = newValue }
     }
 
+}
+
+struct AddWodInfoEntityResponse: Equatable {
+    let programStates: [WodProgramFeature.State]
 }

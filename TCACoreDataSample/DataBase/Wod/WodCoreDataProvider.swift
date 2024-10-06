@@ -24,6 +24,19 @@ final class WodCoreDataProvider {
         return wodProramStates
     }
 
+    func addWodInfoEntity() throws -> AddWodInfoEntityResponse {
+        let wodInfoEntity = WodInfoEntity.instance(with: self.context, model: WodInfoModel.mock)
+
+        let wodProgramStates = wodInfoEntity.weeklyWorkoutProgram.compactMap { programEntity -> WodProgramFeature.State? in
+
+            guard let programEntity = programEntity as? WeeklyWorkoutProgramEntity else { return nil }
+
+            return WodProgramFeature.State(workoutProgramEntity: programEntity)
+        }
+
+        return .init(programStates: wodProgramStates)
+    }
+
 
 }
 

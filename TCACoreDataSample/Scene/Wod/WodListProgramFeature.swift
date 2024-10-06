@@ -20,6 +20,8 @@ struct WodListProgramFeature {
         case onAppear
         case wodProgramActions(id: WodProgramFeature.State.ID, action: WodProgramFeature.Action)
         case getAllProgramStates(Result<[WodProgramFeature.State], Error>)
+        case didTapAddProgramButton
+        case wodAddResponse(Result<[WodProgramFeature.State], Error>)
     }
 
     @Dependency(\.wodClient) var wodClient
@@ -46,6 +48,21 @@ struct WodListProgramFeature {
             case .getAllProgramStates(.failure(let error)):
                 state.wodProgramStates = []
                 return .none
+            case .didTapAddProgramButton:
+                return .run { send in
+                    do {
+                        let response = try wodClient.addWodProgram()
+                        await send(.wodAddResponse(.success(response.programStates)))
+                    } catch {
+                        await send(.wodAddResponse(.failure(error)))
+                    }
+                }
+            case .wodAddResponse(.success(let wodProgramStates)):
+                state.wodProgramStates = IdentifiedArray(uniqueElements: wodProgramStates)
+                return .none
+            case .wodAddResponse(.failure(let error)):
+                state.wodProgramStates = []
+                return .none
             }
         }
     }
@@ -59,8 +76,15 @@ struct WodListProgramView: View {
 
     var body: some View {
         VStack {
-            Text("WodListProgramView")
-
+            Button(action: {
+                store.send(.didTapAddProgramButton)
+            }, label: {
+                Text("새로운 프로그램 추가하기")
+                    .frame(maxWidth: .infinity, minHeight: 56)
+                    .background(.yellow)
+                    .foregroundStyle(.black)
+            })
+            .padding()
             List {
                 ForEachStore(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { store in
                     WodProgramView(store: store)

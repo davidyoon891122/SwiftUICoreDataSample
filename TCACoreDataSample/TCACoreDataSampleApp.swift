@@ -15,6 +15,10 @@ struct TCACoreDataSampleApp: App {
         UserListFeature()
     }
 
+    static let wodStore = Store(initialState: WodListProgramFeature.State()) {
+        WodListProgramFeature()
+    }
+
     var body: some Scene {
         WindowGroup {
             WithPerceptionTracking {

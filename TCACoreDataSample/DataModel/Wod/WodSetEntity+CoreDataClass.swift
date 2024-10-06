@@ -13,3 +13,17 @@ import CoreData
 public class WodSetEntity: NSManagedObject {
 
 }
+
+extension WodSetEntity {
+
+    static func createWodSetEntity(with context: NSManagedObjectContext, models: [WodSetModel]) -> [WodSetEntity] {
+        return models.map { model in
+            let newItem = WodSetEntity(context: context)
+            newItem.unitValue = 0
+            newItem.isCompleted = false
+
+            return newItem
+        }
+    }
+
+}

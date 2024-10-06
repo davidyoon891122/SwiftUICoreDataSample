@@ -13,3 +13,17 @@ import CoreData
 public class WodInfoEntity: NSManagedObject {
 
 }
+
+extension WodInfoEntity {
+
+    static func instance(with context: NSManagedObjectContext, model: WodInfoModel) -> WodInfoEntity {
+        let newWodInfoEntity = WodInfoEntity(context: context)
+        newWodInfoEntity.level = model.level.rawValue
+        newWodInfoEntity.methodType = model.methodType.rawValue
+        let weeklyWorkoutProgram = WeeklyWorkoutProgramEntity.createProgramEntities(with: context, programModel: model.weeklyWorkoutPrograms)
+        newWodInfoEntity.weeklyWorkoutProgram = NSSet(array: weeklyWorkoutProgram)
+
+        return newWodInfoEntity
+    }
+
+}
