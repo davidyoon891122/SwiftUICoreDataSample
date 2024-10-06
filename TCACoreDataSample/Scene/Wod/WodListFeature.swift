@@ -20,15 +20,31 @@ struct WodListFeature {
     enum Action {
         case onAppear
         case wodActions(id: WodFeature.State.ID, action: WodFeature.Action)
+        case getAllWodStates(Result<[WodFeature.State], Error>)
     }
+
+    @Dependency(\.wodClient) var wodClient
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                
-                return .none
+                return .run { [id = state.id] send in
+                    do {
+                        let wodStates = try wodClient.wodStates(id)
+                        await send(.getAllWodStates(.success(wodStates)))
+                    } catch {
+                        await send(.getAllWodStates(.failure(error)))
+                    }
+                }
             case .wodActions:
+                return .none
+
+            case .getAllWodStates(.success(let wodStates)):
+                state.wodStates = IdentifiedArray(uniqueElements: wodStates)
+                return .none
+            case .getAllWodStates(.failure(let error)):
+                state.wodStates = []
                 return .none
             }
         }

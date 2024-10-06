@@ -37,6 +37,27 @@ final class WodCoreDataProvider {
         return .init(programStates: wodProgramStates)
     }
 
+    func getWodStates(id: UUID) throws -> [WodFeature.State] {
+        guard let wodInfoEntity = try self.fetchWodInfo() else { return [] }
+
+        let targetWodProgram = wodInfoEntity.weeklyWorkoutProgram
+            .compactMap {
+                $0 as? WeeklyWorkoutProgramEntity
+            }
+            .filter { $0.id == id }
+            .first
+
+        guard let targetWodProgram = targetWodProgram else { return [] }
+
+        return targetWodProgram.workOutInfos.compactMap {
+            $0 as? WorkOutInfoEntity
+        }
+        .map {
+            WodFeature.State(workOutInfoEntity: $0)
+        }
+
+    }
+
 
 }
 

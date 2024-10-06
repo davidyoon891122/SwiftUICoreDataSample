@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct WodClient {
     var wodPrograms: () throws -> [WodProgramFeature.State]
     var addWodProgram: () throws -> AddWodInfoEntityResponse
+    var wodStates: (UUID) throws -> [WodFeature.State]
 }
 
 extension WodClient: DependencyKey {
@@ -19,6 +20,8 @@ extension WodClient: DependencyKey {
         try WodCoreDataProvider.shared.getWodProgramStates()
     }, addWodProgram: {
         try WodCoreDataProvider.shared.addWodInfoEntity()
+    }, wodStates: { id in
+        try WodCoreDataProvider.shared.getWodStates(id: id)
     })
 
 }

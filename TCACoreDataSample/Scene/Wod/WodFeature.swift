@@ -49,14 +49,12 @@ struct WodView: View {
     let store: StoreOf<WodFeature>
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("WodView")
-            List {
-                ForEach(store.workOutInfoModel.workOutItems) { workOutItem in
-                    Text(workOutItem.title)
-                    ForEach(workOutItem.wodSet, id: \.self) { wodSet in
-                        Text("\(wodSet.unitValue)")
-                    }
+            ForEach(store.workOutInfoModel.workOutItems) { workOutItem in
+                Text(workOutItem.title)
+                ForEach(workOutItem.wodSet, id: \.self) { wodSet in
+                    Text("\(wodSet.unitValue)")
                 }
             }
         }
