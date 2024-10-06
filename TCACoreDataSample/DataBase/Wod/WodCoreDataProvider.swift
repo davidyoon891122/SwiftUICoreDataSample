@@ -34,6 +34,8 @@ final class WodCoreDataProvider {
             return WodProgramFeature.State(workoutProgramEntity: programEntity)
         }
 
+        try context.save()
+
         return .init(programStates: wodProgramStates)
     }
 
