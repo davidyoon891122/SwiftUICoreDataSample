@@ -25,6 +25,8 @@ final class WodCoreDataProvider {
     }
 
     func addWodInfoEntity() throws -> AddWodInfoEntityResponse {
+        self.removeWodInfoEntity()
+
         let wodInfoEntity = WodInfoEntity.instance(with: self.context, model: WodInfoModel.mock)
 
         let wodProgramStates = wodInfoEntity.weeklyWorkoutProgram.compactMap { programEntity -> WodProgramFeature.State? in
@@ -57,9 +59,20 @@ final class WodCoreDataProvider {
         .map {
             WodFeature.State(workOutInfoEntity: $0)
         }
-
     }
 
+    func removeWodInfoEntity() {
+        guard let entities = try? self.fetchAllWodInfo() else { return }
+
+        entities.forEach {
+            let item = context.object(with: $0.objectID)
+            context.delete(item)
+        }
+
+        try? context.save()
+
+        print("Delete Completed")
+    }
 
 }
 
@@ -67,10 +80,15 @@ private extension WodCoreDataProvider {
 
     func fetchWodInfo() throws -> WodInfoEntity? {
         let wodInfo = try context.fetch(WodCoreData.shared.fetchRequest())
-
+        print(wodInfo.count)
         let firstWod = wodInfo.first
 
         return firstWod
+    }
+
+    func fetchAllWodInfo() throws -> [WodInfoEntity] {
+        let wodInfoEntities = try context.fetch(WodCoreData.shared.fetchRequest())
+        return wodInfoEntities
     }
 
 }
