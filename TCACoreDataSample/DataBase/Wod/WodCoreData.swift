@@ -12,7 +12,7 @@ final class WodCoreData {
     static let shared = WodCoreData()
 
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "")
+        let container = NSPersistentContainer(name: Constants.dbName)
 
         container.loadPersistentStores(completionHandler: { _, error in
 
@@ -45,11 +45,16 @@ final class WodCoreData {
 extension WodCoreData {
 
     func fetchRequest() -> NSFetchRequest<WodInfoEntity> {
-        let request = NSFetchRequest<WodInfoEntity>(entityName: "WodInfoEntity")
+        let request = NSFetchRequest<WodInfoEntity>(entityName: Constants.entityName)
 
-        request.sortDescriptors = [NSSortDescriptor(key: "expectedMinutes", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "level", ascending: true)]
 
         return request
+    }
+
+    enum Constants {
+        static let dbName = "WodCoreDataSample"
+        static let entityName = "WodInfoEntity"
     }
 
 }
