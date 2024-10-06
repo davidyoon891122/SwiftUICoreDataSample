@@ -9,6 +9,7 @@ import Foundation
 
 struct WeeklyWorkoutProgramModel: Equatable {
 
+    let id: UUID
     let type: WorkOutDayTagType
     let title: String
     let subTitle: String
@@ -18,6 +19,7 @@ struct WeeklyWorkoutProgramModel: Equatable {
     let workoutInfos: [WorkOutInfoModel]
 
     init(entity: WeeklyWorkoutProgramEntity) {
+        self.id = entity.id
         self.type = WorkOutDayTagType(rawValue: entity.type) ?? .default
         self.title = entity.title
         self.subTitle = entity.subTitle
@@ -29,7 +31,8 @@ struct WeeklyWorkoutProgramModel: Equatable {
         }
     }
 
-    init(type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalories: Int, maxExpectedCalories: Int, workoutInfos: [WorkOutInfoModel]) {
+    init(id: UUID, type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalories: Int, maxExpectedCalories: Int, workoutInfos: [WorkOutInfoModel]) {
+        self.id = id
         self.type = type
         self.title = title
         self.subTitle = subTitle
@@ -68,7 +71,8 @@ extension WorkOutDayTagType {
 
 extension WeeklyWorkoutProgramModel {
 
-    static let preview: Self = .init(type: .start,
+    static let preview: Self = .init(id: UUID(),
+                                     type: .start,
                                      title: "알파 데이",
                                      subTitle: "한 주를 힘차게 시작하는",
                                      expectedMinutes: 60,

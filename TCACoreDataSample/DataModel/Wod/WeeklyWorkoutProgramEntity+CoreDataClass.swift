@@ -12,4 +12,9 @@ import CoreData
 @objc(WeeklyWorkoutProgramEntity)
 public class WeeklyWorkoutProgramEntity: NSManagedObject {
 
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.id = UUID()
+    }
+
 }
