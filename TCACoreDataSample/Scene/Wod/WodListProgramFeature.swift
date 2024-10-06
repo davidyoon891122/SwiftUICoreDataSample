@@ -14,6 +14,7 @@ struct WodListProgramFeature {
     @ObservableState
     struct State: Equatable {
         var wodProgramStates: IdentifiedArrayOf<WodProgramFeature.State> = []
+        var path = StackState<WodListFeature.State>()
     }
 
     enum Action {
@@ -22,6 +23,8 @@ struct WodListProgramFeature {
         case getAllProgramStates(Result<[WodProgramFeature.State], Error>)
         case didTapAddProgramButton
         case wodAddResponse(Result<[WodProgramFeature.State], Error>)
+        case path(StackAction<WodListFeature.State, WodListFeature.Action>)
+        case didTapProgramView(UUID)
     }
 
     @Dependency(\.wodClient) var wodClient
@@ -63,7 +66,15 @@ struct WodListProgramFeature {
             case .wodAddResponse(.failure(let error)):
                 state.wodProgramStates = []
                 return .none
+            case .path:
+                return .none
+            case .didTapProgramView(let uuid):
+                state.path.append(WodListFeature.State(id: uuid))
+                return .none
             }
+        }
+        .forEach(\.path, action: \.path) {
+            WodListFeature()
         }
     }
 
@@ -72,27 +83,34 @@ struct WodListProgramFeature {
 import SwiftUI
 struct WodListProgramView: View {
 
-    let store: StoreOf<WodListProgramFeature>
+    @Perception.Bindable var store: StoreOf<WodListProgramFeature>
 
     var body: some View {
-        VStack {
-            Button(action: {
-                store.send(.didTapAddProgramButton)
-            }, label: {
-                Text("새로운 프로그램 추가하기")
-                    .frame(maxWidth: .infinity, minHeight: 56)
-                    .background(.yellow)
-                    .foregroundStyle(.black)
-            })
-            .padding()
-            List {
-                ForEachStore(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { store in
-                    WodProgramView(store: store)
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            VStack {
+                Button(action: {
+                    store.send(.didTapAddProgramButton)
+                }, label: {
+                    Text("새로운 프로그램 추가하기")
+                        .frame(maxWidth: .infinity, minHeight: 56)
+                        .background(.yellow)
+                        .foregroundStyle(.black)
+                })
+                .padding()
+                List {
+                    ForEachStore(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { programStore in
+                        WodProgramView(store: programStore)
+                            .onTapGesture {
+                                store.send(.didTapProgramView(programStore.workoutProgramModel.id))
+                            }
+                    }
                 }
             }
-        }
-        .onAppear {
-            store.send(.onAppear)
+            .onAppear {
+                store.send(.onAppear)
+            }
+        } destination: { store in
+            WodListView(store: store)
         }
     }
 
