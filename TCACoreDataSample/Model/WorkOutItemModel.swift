@@ -7,22 +7,57 @@
 
 import Foundation
 
-struct WorkOutItemModel: Equatable {
+struct WorkOutItemModel: Equatable, Identifiable {
 
+    let id: UUID
     let title: String
     let subTitle: String
-    let unit: String
+    let unit: ExerciseUnit
     let unitValue: Int
     let set: Int
     let wodSet: [WodSetModel]
 
     init(entity: WorkOutItemEntity) {
+        self.id = UUID()
         self.title = entity.title
         self.subTitle = entity.subTitle
-        self.unit = entity.unit
+        self.unit = ExerciseUnit(rawValue: entity.unit) ?? .seconds
         self.unitValue = Int(entity.unitValue)
         self.set = Int(entity.set)
         self.wodSet = entity.wodSet.map { WodSetModel(entity: $0 as! WodSetEntity) }
+    }
+
+    init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int, wodSet: [WodSetModel]) {
+        self.id = UUID()
+        self.title = title
+        self.subTitle = subTitle
+        self.unit = unit
+        self.unitValue = unitValue
+        self.set = set
+        self.wodSet = wodSet
+    }
+
+}
+
+enum ExerciseUnit: String, Codable {
+
+    case seconds
+    case minutes
+    case repetitions
+
+}
+
+extension ExerciseUnit {
+
+    var title: String {
+        switch self {
+        case .seconds:
+            return "초 (Sec)" // Q: 초에 대한 기획.
+        case .minutes:
+            return "분 (Min)"
+        case .repetitions:
+            return "회 (rep)"
+        }
     }
 
 }

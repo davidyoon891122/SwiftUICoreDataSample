@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WodSetModel: Equatable {
+struct WodSetModel: Equatable, Hashable {
 
     let unitValue: Int
     let isCompleted: Bool
@@ -15,6 +15,11 @@ struct WodSetModel: Equatable {
     init(entity: WodSetEntity) {
         self.unitValue = Int(entity.unitValue)
         self.isCompleted = entity.isCompleted
+    }
+
+    init(unitValue: Int, isCompleted: Bool) {
+        self.unitValue = unitValue
+        self.isCompleted = isCompleted
     }
 
 }
