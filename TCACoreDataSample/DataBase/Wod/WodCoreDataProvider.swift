@@ -18,7 +18,7 @@ final class WodCoreDataProvider {
         guard let wodInfoEntity = try self.fetchWodInfo() else { return [] }
 
         let wodProramStates = wodInfoEntity.weeklyWorkoutProgram.map {
-            WodProgramFeature.State(workoutProgramEntity: $0 as! WeeklyWorkoutProgramEntity)
+            WodProgramFeature.State(workoutProgramEntity: $0)
         }
 
         return wodProramStates
@@ -29,11 +29,8 @@ final class WodCoreDataProvider {
 
         let wodInfoEntity = WodInfoEntity.instance(with: self.context, model: WodInfoModel.mock)
 
-        let wodProgramStates = wodInfoEntity.weeklyWorkoutProgram.compactMap { programEntity -> WodProgramFeature.State? in
-
-            guard let programEntity = programEntity as? WeeklyWorkoutProgramEntity else { return nil }
-
-            return WodProgramFeature.State(workoutProgramEntity: programEntity)
+        let wodProgramStates = wodInfoEntity.weeklyWorkoutProgram.compactMap {
+            return WodProgramFeature.State(workoutProgramEntity: $0)
         }
 
         try context.save()
@@ -45,17 +42,12 @@ final class WodCoreDataProvider {
         guard let wodInfoEntity = try self.fetchWodInfo() else { return [] }
 
         let targetWodProgram = wodInfoEntity.weeklyWorkoutProgram
-            .compactMap {
-                $0 as? WeeklyWorkoutProgramEntity
-            }
             .filter { $0.id == id }
             .first
 
         guard let targetWodProgram = targetWodProgram else { return [] }
 
-        return targetWodProgram.workOutInfos.compactMap {
-            $0 as? WorkOutInfoEntity
-        }
+        return targetWodProgram.workOutInfos
         .map {
             WodFeature.State(parentId: id, workOutInfoEntity: $0)
         }
@@ -78,16 +70,10 @@ final class WodCoreDataProvider {
         guard let wodInfoEntity = try self.fetchWodInfo() else { return .init(updatedWod: nil, allWods: []) }
         
         let targetWodProgram = wodInfoEntity.weeklyWorkoutProgram
-            .compactMap {
-                $0 as? WeeklyWorkoutProgramEntity
-            }
             .filter { $0.id == id }
             .first
 
         guard let targetWodProgram = targetWodProgram else { return .init(updatedWod: nil, allWods: []) }
-        
-        let result = targetWodProgram.workOutInfos.compactMap { $0 as? WorkOutInfoEntity }
-        let item = result.filter { $0.id == wodState.workOutInfoModel.id }
         
         
         

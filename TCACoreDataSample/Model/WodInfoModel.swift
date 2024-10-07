@@ -17,7 +17,7 @@ struct WodInfoModel: Equatable {
         self.methodType = ProgramMethodType(rawValue: entity.methodType) ?? .body
         self.level = LevelType(rawValue: entity.level) ?? .beginner
         self.weeklyWorkoutPrograms = entity.weeklyWorkoutProgram.map {
-            WeeklyWorkoutProgramModel(entity: $0 as! WeeklyWorkoutProgramEntity)
+            WeeklyWorkoutProgramModel(entity: $0)
         }
     }
 

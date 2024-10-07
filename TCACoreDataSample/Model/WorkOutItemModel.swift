@@ -24,7 +24,7 @@ struct WorkOutItemModel: Equatable, Identifiable {
         self.unit = ExerciseUnit(rawValue: entity.unit) ?? .seconds
         self.unitValue = Int(entity.unitValue)
         self.set = Int(entity.set)
-        self.wodSet = entity.wodSet.map { WodSetModel(entity: $0 as! WodSetEntity) }
+        self.wodSet = entity.wodSet.map { WodSetModel(entity: $0) }
     }
 
     init(id: UUID, title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int, wodSet: [WodSetModel]) {

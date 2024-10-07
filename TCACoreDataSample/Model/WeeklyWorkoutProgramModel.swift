@@ -27,7 +27,7 @@ struct WeeklyWorkoutProgramModel: Equatable {
         self.minExpectedCalories = Int(entity.minExpectedCalories)
         self.maxExpectedCalories = Int(entity.maxExpectedCalories)
         self.workoutInfos = entity.workOutInfos.map {
-            WorkOutInfoModel(entity: $0 as! WorkOutInfoEntity)
+            WorkOutInfoModel(entity: $0)
         }
     }
 
