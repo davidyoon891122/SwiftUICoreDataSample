@@ -75,6 +75,18 @@ final class WodCoreDataProvider {
 
         guard let targetWodProgram = targetWodProgram else { return .init(updatedWod: nil, allWods: []) }
         
+        guard let objectID = targetWodProgram.workOutInfos.filter({ $0.id == wodState.workOutInfoModel.id }).first?.objectID,
+        let workoutInfoEntity = context.object(with: objectID) as? WorkOutInfoEntity else { return .init(updatedWod: nil, allWods: [])}
+        
+        workoutInfoEntity.workOutItem = Set(wodState.workOutInfoModel.workOutItems.map {
+            WorkOutItemEntity.convertModelToEntity(with: context, model: $0)
+        })
+        
+        do {
+            try context.save()
+        } catch {
+            print("update error: \(error.localizedDescription)")
+        }
         
         
         return .init(updatedWod: nil, allWods: [])

@@ -33,5 +33,18 @@ extension WorkOutItemEntity {
             return newItem
         }
     }
+    
+    static func convertModelToEntity(with context: NSManagedObjectContext, model: WorkOutItemModel) -> WorkOutItemEntity {
+        let newItem = WorkOutItemEntity(context: context)
+        newItem.id = model.id
+        newItem.title = model.title
+        newItem.subTitle = model.subTitle
+        newItem.unit = model.unit.rawValue
+        newItem.unitValue = Int16(model.unitValue)
+        newItem.set = Int16(model.set)
+        newItem.wodSet = Set(WodSetEntity.createWodSetEntity(with: context, models: model.wodSet))
+        
+        return newItem
+    }
 
 }
