@@ -32,7 +32,7 @@ final class WodCoreDataProvider {
         let wodProgramStates = wodInfoEntity.weeklyWorkoutProgram.compactMap {
             return WodProgramFeature.State(workoutProgramEntity: $0)
         }
-
+        
         try context.save()
 
         return .init(programStates: wodProgramStates)
@@ -78,6 +78,7 @@ final class WodCoreDataProvider {
         guard let objectID = targetWodProgram.workOutInfos.filter({ $0.id == wodState.workOutInfoModel.id }).first?.objectID,
         let workoutInfoEntity = context.object(with: objectID) as? WorkOutInfoEntity else { return .init(updatedWod: nil, allWods: [])}
         
+        workoutInfoEntity.type = "ModifiedType"
         workoutInfoEntity.workOutItem = Set(wodState.workOutInfoModel.workOutItems.map {
             WorkOutItemEntity.convertModelToEntity(with: context, model: $0)
         })
@@ -87,6 +88,8 @@ final class WodCoreDataProvider {
         } catch {
             print("update error: \(error.localizedDescription)")
         }
+        
+        print("Updated Objects: \(context.updatedObjects)")
         
         
         return .init(updatedWod: nil, allWods: [])

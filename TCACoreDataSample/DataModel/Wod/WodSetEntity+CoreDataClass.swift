@@ -20,7 +20,7 @@ extension WodSetEntity {
         return models.map { model in
             let newItem = WodSetEntity(context: context)
             newItem.unitValue = Int16(model.unitValue)
-            newItem.isCompleted = false
+            newItem.isCompleted = model.isCompleted
 
             return newItem
         }
