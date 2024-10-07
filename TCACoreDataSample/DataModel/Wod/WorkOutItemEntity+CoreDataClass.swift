@@ -11,7 +11,10 @@ import CoreData
 
 @objc(WorkOutItemEntity)
 public class WorkOutItemEntity: NSManagedObject {
-
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.id = UUID()
+    }
 }
 
 extension WorkOutItemEntity {
@@ -19,6 +22,7 @@ extension WorkOutItemEntity {
     static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WorkOutItemModel]) -> [WorkOutItemEntity] {
         models.map { model in
             let newItem = WorkOutItemEntity(context: context)
+            newItem.id = UUID()
             newItem.title = model.title
             newItem.subTitle = model.subTitle
             newItem.unit = model.unit.rawValue

@@ -20,10 +20,12 @@
         <attribute name="unitValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="WorkOutInfoEntity" representedClassName="WorkOutInfoEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="type" attributeType="String"/>
         <relationship name="workOutItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutItemEntity"/>
     </entity>
     <entity name="WorkOutItemEntity" representedClassName="WorkOutItemEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="set" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subTitle" attributeType="String"/>
         <attribute name="title" attributeType="String"/>

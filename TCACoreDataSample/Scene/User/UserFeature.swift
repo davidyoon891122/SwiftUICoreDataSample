@@ -31,13 +31,20 @@ struct UserFeature {
     }
 
     enum Action {
-
+        case onAppear
+        case didTapButton
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-
+            case .onAppear:
+                print("OnAppear")
+                return .none
+            case .didTapButton:
+                
+                print("didTap button")
+                return .none
             }
         }
     }
@@ -56,7 +63,15 @@ struct UserView: View {
                     Text(store.name)
                     Spacer()
                     Text("\(store.age)")
+                    Button(action: {
+                        store.send(.didTapButton)
+                    }, label: {
+                        Text("didtap Button")
+                    })
                 }
+            }
+            .onAppear {
+                store.send(.onAppear)
             }
         }
     }

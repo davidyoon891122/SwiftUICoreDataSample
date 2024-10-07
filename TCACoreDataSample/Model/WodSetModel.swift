@@ -11,7 +11,7 @@ struct WodSetModel: Equatable, Hashable {
 
     let id: UUID
     let unitValue: Int
-    let isCompleted: Bool
+    var isCompleted: Bool
 
     init(entity: WodSetEntity) {
         self.id = UUID()

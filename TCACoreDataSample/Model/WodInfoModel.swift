@@ -40,8 +40,9 @@ extension WodInfoModel {
               minExpectedCalories: 445,
               maxExpectedCalories: 550,
               workoutInfos: [
-                .init(type: .warmUp, workOutItems: [
-                    .init(title: "트레드밀",
+                .init(id: UUID(), type: .warmUp, workOutItems: [
+                    .init(id: UUID(),
+                          title: "트레드밀",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -49,7 +50,8 @@ extension WodInfoModel {
                           wodSet: [
                             .init(unitValue: 1, isCompleted: false)
                           ]),
-                    .init(title: "시티드 덤벨 바이셉스 컬",
+                    .init(id: UUID(),
+                          title: "시티드 덤벨 바이셉스 컬",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -59,8 +61,9 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .main, workOutItems: [
-                    .init(title: "체스트 프레스 머신",
+                .init(id: UUID(), type: .main, workOutItems: [
+                    .init(id: UUID(),
+                          title: "체스트 프레스 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -70,7 +73,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "힙 어브덕터/애덕터 머신",
+                    .init(id: UUID(),
+                          title: "힙 어브덕터/애덕터 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -80,7 +84,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "로우 러시안 트위스트",
+                    .init(id: UUID(),
+                          title: "로우 러시안 트위스트",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 30,
@@ -91,8 +96,9 @@ extension WodInfoModel {
                             .init(unitValue: 3, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .coolDown, workOutItems: [
-                    .init(title: "엘립티컬 머신",
+                .init(id: UUID(), type: .coolDown, workOutItems: [
+                    .init(id: UUID(),
+                          title: "엘립티컬 머신",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -101,7 +107,8 @@ extension WodInfoModel {
                             .init(unitValue: 1, isCompleted: false),
                             .init(unitValue: 2, isCompleted: false)
                           ]),
-                    .init(title: "타이거 크롤",
+                    .init(id: UUID(),
+                          title: "타이거 크롤",
                           subTitle: "lowing abc",
                           unit: .seconds,
                           unitValue: 20,
@@ -120,8 +127,9 @@ extension WodInfoModel {
               minExpectedCalories: 445,
               maxExpectedCalories: 550,
               workoutInfos: [
-                .init(type: .warmUp, workOutItems: [
-                    .init(title: "트레드밀",
+                .init(id: UUID(), type: .warmUp, workOutItems: [
+                    .init(id: UUID(),
+                          title: "트레드밀",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -129,7 +137,8 @@ extension WodInfoModel {
                           wodSet: [
                             .init(unitValue: 1, isCompleted: false)
                           ]),
-                    .init(title: "시티드 덤벨 바이셉스 컬",
+                    .init(id: UUID(),
+                          title: "시티드 덤벨 바이셉스 컬",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -139,8 +148,9 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .main, workOutItems: [
-                    .init(title: "체스트 프레스 머신",
+                .init(id: UUID(), type: .main, workOutItems: [
+                    .init(id: UUID(),
+                          title: "체스트 프레스 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -150,7 +160,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "힙 어브덕터/애덕터 머신",
+                    .init(id: UUID(),
+                          title: "힙 어브덕터/애덕터 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -160,7 +171,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "로우 러시안 트위스트",
+                    .init(id: UUID(),
+                          title: "로우 러시안 트위스트",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 30,
@@ -171,8 +183,9 @@ extension WodInfoModel {
                             .init(unitValue: 3, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .coolDown, workOutItems: [
-                    .init(title: "엘립티컬 머신",
+                .init(id: UUID(), type: .coolDown, workOutItems: [
+                    .init(id: UUID(),
+                          title: "엘립티컬 머신",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -181,7 +194,8 @@ extension WodInfoModel {
                             .init(unitValue: 1, isCompleted: false),
                             .init(unitValue: 2, isCompleted: false)
                           ]),
-                    .init(title: "타이거 크롤",
+                    .init(id: UUID(),
+                          title: "타이거 크롤",
                           subTitle: "lowing abc",
                           unit: .seconds,
                           unitValue: 20,
@@ -200,8 +214,9 @@ extension WodInfoModel {
               minExpectedCalories: 445,
               maxExpectedCalories: 550,
               workoutInfos: [
-                .init(type: .warmUp, workOutItems: [
-                    .init(title: "트레드밀",
+                .init(id: UUID(), type: .warmUp, workOutItems: [
+                    .init(id: UUID(),
+                          title: "트레드밀",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -209,7 +224,8 @@ extension WodInfoModel {
                           wodSet: [
                             .init(unitValue: 1, isCompleted: false)
                           ]),
-                    .init(title: "시티드 덤벨 바이셉스 컬",
+                    .init(id: UUID(),
+                          title: "시티드 덤벨 바이셉스 컬",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -219,8 +235,9 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .main, workOutItems: [
-                    .init(title: "체스트 프레스 머신",
+                .init(id: UUID(), type: .main, workOutItems: [
+                    .init(id: UUID(),
+                          title: "체스트 프레스 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -230,7 +247,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "힙 어브덕터/애덕터 머신",
+                    .init(id: UUID(),
+                          title: "힙 어브덕터/애덕터 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -240,7 +258,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "로우 러시안 트위스트",
+                    .init(id: UUID(),
+                          title: "로우 러시안 트위스트",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 30,
@@ -251,8 +270,9 @@ extension WodInfoModel {
                             .init(unitValue: 3, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .coolDown, workOutItems: [
-                    .init(title: "엘립티컬 머신",
+                .init(id: UUID(), type: .coolDown, workOutItems: [
+                    .init(id: UUID(),
+                          title: "엘립티컬 머신",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -261,7 +281,8 @@ extension WodInfoModel {
                             .init(unitValue: 1, isCompleted: false),
                             .init(unitValue: 2, isCompleted: false)
                           ]),
-                    .init(title: "타이거 크롤",
+                    .init(id: UUID(),
+                          title: "타이거 크롤",
                           subTitle: "lowing abc",
                           unit: .seconds,
                           unitValue: 20,
@@ -280,8 +301,9 @@ extension WodInfoModel {
               minExpectedCalories: 445,
               maxExpectedCalories: 550,
               workoutInfos: [
-                .init(type: .warmUp, workOutItems: [
-                    .init(title: "트레드밀",
+                .init(id: UUID(), type: .warmUp, workOutItems: [
+                    .init(id: UUID(),
+                          title: "트레드밀",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -289,7 +311,8 @@ extension WodInfoModel {
                           wodSet: [
                             .init(unitValue: 1, isCompleted: false)
                           ]),
-                    .init(title: "시티드 덤벨 바이셉스 컬",
+                    .init(id: UUID(),
+                          title: "시티드 덤벨 바이셉스 컬",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -299,8 +322,9 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .main, workOutItems: [
-                    .init(title: "체스트 프레스 머신",
+                .init(id: UUID(), type: .main, workOutItems: [
+                    .init(id: UUID(),
+                          title: "체스트 프레스 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -310,7 +334,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "힙 어브덕터/애덕터 머신",
+                    .init(id: UUID(),
+                          title: "힙 어브덕터/애덕터 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -320,7 +345,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "로우 러시안 트위스트",
+                    .init(id: UUID(),
+                          title: "로우 러시안 트위스트",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 30,
@@ -331,8 +357,9 @@ extension WodInfoModel {
                             .init(unitValue: 3, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .coolDown, workOutItems: [
-                    .init(title: "엘립티컬 머신",
+                .init(id: UUID(), type: .coolDown, workOutItems: [
+                    .init(id: UUID(),
+                          title: "엘립티컬 머신",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -341,7 +368,8 @@ extension WodInfoModel {
                             .init(unitValue: 1, isCompleted: false),
                             .init(unitValue: 2, isCompleted: false)
                           ]),
-                    .init(title: "타이거 크롤",
+                    .init(id: UUID(),
+                          title: "타이거 크롤",
                           subTitle: "lowing abc",
                           unit: .seconds,
                           unitValue: 20,
@@ -360,8 +388,9 @@ extension WodInfoModel {
               minExpectedCalories: 445,
               maxExpectedCalories: 550,
               workoutInfos: [
-                .init(type: .warmUp, workOutItems: [
-                    .init(title: "트레드밀",
+                .init(id: UUID(), type: .warmUp, workOutItems: [
+                    .init(id: UUID(),
+                          title: "트레드밀",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -369,7 +398,8 @@ extension WodInfoModel {
                           wodSet: [
                             .init(unitValue: 1, isCompleted: false)
                           ]),
-                    .init(title: "시티드 덤벨 바이셉스 컬",
+                    .init(id: UUID(),
+                          title: "시티드 덤벨 바이셉스 컬",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -379,8 +409,9 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .main, workOutItems: [
-                    .init(title: "체스트 프레스 머신",
+                .init(id: UUID(), type: .main, workOutItems: [
+                    .init(id: UUID(),
+                          title: "체스트 프레스 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -390,7 +421,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "힙 어브덕터/애덕터 머신",
+                    .init(id: UUID(),
+                          title: "힙 어브덕터/애덕터 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -400,7 +432,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "로우 러시안 트위스트",
+                    .init(id: UUID(),
+                          title: "로우 러시안 트위스트",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 30,
@@ -411,8 +444,9 @@ extension WodInfoModel {
                             .init(unitValue: 3, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .coolDown, workOutItems: [
-                    .init(title: "엘립티컬 머신",
+                .init(id: UUID(), type: .coolDown, workOutItems: [
+                    .init(id: UUID(),
+                          title: "엘립티컬 머신",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -421,7 +455,8 @@ extension WodInfoModel {
                             .init(unitValue: 1, isCompleted: false),
                             .init(unitValue: 2, isCompleted: false)
                           ]),
-                    .init(title: "타이거 크롤",
+                    .init(id: UUID(),
+                          title: "타이거 크롤",
                           subTitle: "lowing abc",
                           unit: .seconds,
                           unitValue: 20,
@@ -440,8 +475,9 @@ extension WodInfoModel {
               minExpectedCalories: 445,
               maxExpectedCalories: 550,
               workoutInfos: [
-                .init(type: .warmUp, workOutItems: [
-                    .init(title: "트레드밀",
+                .init(id: UUID(), type: .warmUp, workOutItems: [
+                    .init(id: UUID(),
+                          title: "트레드밀",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -449,7 +485,8 @@ extension WodInfoModel {
                           wodSet: [
                             .init(unitValue: 1, isCompleted: false)
                           ]),
-                    .init(title: "시티드 덤벨 바이셉스 컬",
+                    .init(id: UUID(),
+                          title: "시티드 덤벨 바이셉스 컬",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -459,8 +496,9 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .main, workOutItems: [
-                    .init(title: "체스트 프레스 머신",
+                .init(id: UUID(), type: .main, workOutItems: [
+                    .init(id: UUID(),
+                          title: "체스트 프레스 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -470,7 +508,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "힙 어브덕터/애덕터 머신",
+                    .init(id: UUID(),
+                          title: "힙 어브덕터/애덕터 머신",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 12,
@@ -480,7 +519,8 @@ extension WodInfoModel {
                             .init(unitValue: 2, isCompleted: false),
                             .init(unitValue: 3, isCompleted: false)
                           ]),
-                    .init(title: "로우 러시안 트위스트",
+                    .init(id: UUID(),
+                          title: "로우 러시안 트위스트",
                           subTitle: "lowing abc",
                           unit: .repetitions,
                           unitValue: 30,
@@ -491,8 +531,9 @@ extension WodInfoModel {
                             .init(unitValue: 3, isCompleted: false)
                           ]),
                 ]),
-                .init(type: .coolDown, workOutItems: [
-                    .init(title: "엘립티컬 머신",
+                .init(id: UUID(), type: .coolDown, workOutItems: [
+                    .init(id: UUID(),
+                          title: "엘립티컬 머신",
                           subTitle: "lowing abc",
                           unit: .minutes,
                           unitValue: 5,
@@ -501,7 +542,8 @@ extension WodInfoModel {
                             .init(unitValue: 1, isCompleted: false),
                             .init(unitValue: 2, isCompleted: false)
                           ]),
-                    .init(title: "타이거 크롤",
+                    .init(id: UUID(),
+                          title: "타이거 크롤",
                           subTitle: "lowing abc",
                           unit: .seconds,
                           unitValue: 20,

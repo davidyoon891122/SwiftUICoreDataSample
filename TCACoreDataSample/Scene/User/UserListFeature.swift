@@ -96,8 +96,10 @@ struct UserListFeature {
                 return .run { send in
                     await send(.getAllUsers(.success(users)))
                 }
-
             }
+        }
+        .forEach(\.users, action: /Action.user(id:action:)) {
+            UserFeature()
         }
     }
 
@@ -112,14 +114,14 @@ struct UserListView: View {
         WithPerceptionTracking {
             NavigationStack {
                 VStack {
-                    List {
-                        ForEachStore(store.scope(state: \.users, action: \.user)) { store in
-                            UserView(store: store)
-                        }
-                        .onDelete { indexSet in
-                            store.send(.deleteUser(indexSet))
-                        }
+                    
+                    ForEachStore(store.scope(state: \.users, action: \.user)) { store in
+                        UserView(store: store)
                     }
+                    .onDelete { indexSet in
+                        store.send(.deleteUser(indexSet))
+                    }
+                
                 }
                 .onAppear {
                     store.send(.onAppear)

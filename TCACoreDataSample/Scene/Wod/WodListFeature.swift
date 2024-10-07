@@ -48,6 +48,9 @@ struct WodListFeature {
                 return .none
             }
         }
+        .forEach(\.wodStates, action: /Action.wodActions(id:action:)) {
+            WodFeature()
+        }
     }
 
 }
@@ -59,9 +62,11 @@ struct WodListView: View {
 
     var body: some View {
         VStack {
-            List {
-                ForEachStore(store.scope(state: \.wodStates, action: \.wodActions)) { store in
-                    WodView(store: store)
+            ScrollView {
+                LazyVStack {
+                    ForEachStore(store.scope(state: \.wodStates, action: \.wodActions)) { store in
+                        WodView(store: store)
+                    }                    
                 }
             }
         }

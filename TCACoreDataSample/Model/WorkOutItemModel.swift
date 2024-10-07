@@ -15,10 +15,10 @@ struct WorkOutItemModel: Equatable, Identifiable {
     let unit: ExerciseUnit
     let unitValue: Int
     let set: Int
-    let wodSet: [WodSetModel]
+    var wodSet: [WodSetModel]
 
     init(entity: WorkOutItemEntity) {
-        self.id = UUID()
+        self.id = entity.id
         self.title = entity.title
         self.subTitle = entity.subTitle
         self.unit = ExerciseUnit(rawValue: entity.unit) ?? .seconds
@@ -27,8 +27,8 @@ struct WorkOutItemModel: Equatable, Identifiable {
         self.wodSet = entity.wodSet.map { WodSetModel(entity: $0 as! WodSetEntity) }
     }
 
-    init(title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int, wodSet: [WodSetModel]) {
-        self.id = UUID()
+    init(id: UUID, title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int, wodSet: [WodSetModel]) {
+        self.id = id
         self.title = title
         self.subTitle = subTitle
         self.unit = unit

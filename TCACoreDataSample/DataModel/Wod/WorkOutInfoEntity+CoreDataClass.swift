@@ -11,7 +11,10 @@ import CoreData
 
 @objc(WorkOutInfoEntity)
 public class WorkOutInfoEntity: NSManagedObject {
-
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.id = UUID()
+    }
 }
 
 extension WorkOutInfoEntity {

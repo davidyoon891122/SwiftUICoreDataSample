@@ -73,6 +73,26 @@ final class WodCoreDataProvider {
 
         print("Delete Completed")
     }
+    
+    func updateWodState(id: UUID, wodState: WodFeature.State) throws -> UpdateWodResponse {
+        guard let wodInfoEntity = try self.fetchWodInfo() else { return .init(updatedWod: nil, allWods: []) }
+        
+        let targetWodProgram = wodInfoEntity.weeklyWorkoutProgram
+            .compactMap {
+                $0 as? WeeklyWorkoutProgramEntity
+            }
+            .filter { $0.id == id }
+            .first
+
+        guard let targetWodProgram = targetWodProgram else { return .init(updatedWod: nil, allWods: []) }
+        
+        let result = targetWodProgram.workOutInfos.compactMap { $0 as? WorkOutInfoEntity }
+//        let workoutItems = result.compactMap { $0.workOutItem as? WorkOutItemEntity }
+        
+        print(type(of: result.first?.workOutItem))
+        
+        return .init(updatedWod: nil, allWods: [])
+    }
 
 }
 

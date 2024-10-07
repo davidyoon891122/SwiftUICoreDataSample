@@ -12,6 +12,7 @@ struct WodClient {
     var wodPrograms: () throws -> [WodProgramFeature.State]
     var addWodProgram: () throws -> AddWodInfoEntityResponse
     var wodStates: (UUID) throws -> [WodFeature.State]
+    var updateStates: (UUID, WodFeature.State) throws -> UpdateWodResponse
 }
 
 extension WodClient: DependencyKey {
@@ -22,6 +23,8 @@ extension WodClient: DependencyKey {
         try WodCoreDataProvider.shared.addWodInfoEntity()
     }, wodStates: { id in
         try WodCoreDataProvider.shared.getWodStates(id: id)
+    }, updateStates: { id, state in
+        try WodCoreDataProvider.shared.updateWodState(id: id, wodState: state)
     })
 
 }
@@ -37,4 +40,9 @@ extension DependencyValues {
 
 struct AddWodInfoEntityResponse: Equatable {
     let programStates: [WodProgramFeature.State]
+}
+
+struct UpdateWodResponse: Equatable {
+    let updatedWod: WodFeature.State?
+    let allWods: [WodFeature.State]
 }

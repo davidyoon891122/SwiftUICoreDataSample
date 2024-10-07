@@ -16,6 +16,7 @@ extension WorkOutItemEntity {
         return NSFetchRequest<WorkOutItemEntity>(entityName: "WorkOutItemEntity")
     }
 
+    @NSManaged public var id: UUID
     @NSManaged public var set: Int16
     @NSManaged public var subTitle: String
     @NSManaged public var title: String

@@ -9,17 +9,20 @@ import Foundation
 
 struct WorkOutInfoModel: Equatable {
 
+    let id: UUID
     let type: WorkOutType
-    let workOutItems: [WorkOutItemModel]
+    var workOutItems: [WorkOutItemModel]
 
     init(entity: WorkOutInfoEntity) {
         self.type = WorkOutType(rawValue: entity.type) ?? .coolDown
         self.workOutItems = entity.workOutItem.map {
             WorkOutItemModel(entity: $0 as! WorkOutItemEntity)
         }
+        self.id = entity.id
     }
 
-    init(type: WorkOutType, workOutItems: [WorkOutItemModel]) {
+    init(id: UUID, type: WorkOutType, workOutItems: [WorkOutItemModel]) {
+        self.id = id
         self.type = type
         self.workOutItems = workOutItems
     }
@@ -28,11 +31,11 @@ struct WorkOutInfoModel: Equatable {
 
 extension WorkOutInfoModel {
 
-    static let preview: Self = .init(type: .warmUp, workOutItems: [
-        .init(title: "트레드밀", subTitle: "lowing abc", unit: .minutes, unitValue: 5, set: 1, wodSet: [
+    static let preview: Self = .init(id: UUID(), type: .warmUp, workOutItems: [
+        .init(id: UUID(), title: "트레드밀", subTitle: "lowing abc", unit: .minutes, unitValue: 5, set: 1, wodSet: [
             .init(unitValue: 1, isCompleted: false)
         ]),
-        .init(title: "시티드 덤벨 바이셉스 컬", subTitle: "lowing abc", unit: .repetitions, unitValue: 12, set: 2, wodSet: [
+        .init(id: UUID(), title: "시티드 덤벨 바이셉스 컬", subTitle: "lowing abc", unit: .repetitions, unitValue: 12, set: 2, wodSet: [
             .init(unitValue: 1, isCompleted: false),
             .init(unitValue: 2, isCompleted: false)
         ])
