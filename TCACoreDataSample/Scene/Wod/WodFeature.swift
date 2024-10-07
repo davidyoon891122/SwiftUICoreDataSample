@@ -89,7 +89,7 @@ struct WodView: View {
             Text("WodView")
             ForEach(store.workOutInfoModel.workOutItems) { workOutItem in
                 Text(workOutItem.title)
-                ForEach(workOutItem.wodSet, id: \.self) { wodSet in
+                ForEach(workOutItem.wodSet.sorted(by: {$0.unitValue < $1.unitValue}), id: \.self) { wodSet in
                     HStack {
                         Text("\(wodSet.unitValue)")
                         Spacer()
