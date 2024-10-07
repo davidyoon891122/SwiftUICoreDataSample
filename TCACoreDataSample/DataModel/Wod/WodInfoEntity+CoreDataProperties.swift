@@ -18,7 +18,7 @@ extension WodInfoEntity {
 
     @NSManaged public var level: String
     @NSManaged public var methodType: String
-    @NSManaged public var weeklyWorkoutProgram: NSSet
+    @NSManaged public var weeklyWorkoutProgram: Set<WeeklyWorkoutProgramEntity>
 
 }
 

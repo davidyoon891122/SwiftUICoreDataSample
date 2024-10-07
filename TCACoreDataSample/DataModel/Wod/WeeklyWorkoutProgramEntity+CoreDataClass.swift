@@ -31,7 +31,7 @@ extension WeeklyWorkoutProgramEntity {
             newItem.minExpectedCalories = Int16(model.minExpectedCalories)
             newItem.maxExpectedCalories = Int16(model.maxExpectedCalories)
             let workOutInfos = WorkOutInfoEntity.createWorkoutInfoEntities(with: context, models: model.workoutInfos)
-            newItem.workOutInfos = NSSet(array: workOutInfos)
+            newItem.workOutInfos = Set(workOutInfos)
             return newItem
         }
     }

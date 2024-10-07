@@ -21,7 +21,7 @@ extension WodInfoEntity {
         newWodInfoEntity.level = model.level.rawValue
         newWodInfoEntity.methodType = model.methodType.rawValue
         let weeklyWorkoutProgram = WeeklyWorkoutProgramEntity.createProgramEntities(with: context, programModel: model.weeklyWorkoutPrograms)
-        newWodInfoEntity.weeklyWorkoutProgram = NSSet(array: weeklyWorkoutProgram)
+        newWodInfoEntity.weeklyWorkoutProgram = Set(weeklyWorkoutProgram)
 
         return newWodInfoEntity
     }

@@ -13,15 +13,18 @@ struct WodFeature {
 
     @ObservableState
     struct State: Equatable, Identifiable {
+        var parentId: UUID
         var id: UUID
         var workOutInfoModel: WorkOutInfoModel
 
-        init(workOutInfoEntity: WorkOutInfoEntity) {
+        init(parentId: UUID, workOutInfoEntity: WorkOutInfoEntity) {
+            self.parentId = parentId
             self.id = workOutInfoEntity.id
             self.workOutInfoModel = .init(entity: workOutInfoEntity)
         }
 
-        init(workOutInfoModel: WorkOutInfoModel) {
+        init(parentId: UUID, id: UUID, workOutInfoModel: WorkOutInfoModel) {
+            self.parentId = parentId
             self.id = UUID()
             self.workOutInfoModel = workOutInfoModel
         }
@@ -50,9 +53,9 @@ struct WodFeature {
                     }
                 }
                 
-                let updatedWod = WodFeature.State(workOutInfoModel: state.workOutInfoModel)
+                let updatedWod = WodFeature.State(parentId: state.id, id: id, workOutInfoModel: state.workOutInfoModel)
                 print("didTapSetButton: \(id)")
-                return .run { [id = state.id] send in
+                return .run { [id = state.parentId] send in
                     do {
                         let result = try wodClient.updateStates(id, updatedWod)
                     } catch {
@@ -84,11 +87,6 @@ struct WodView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("WodView")
-            Button(action: {
-                store.send(.didTapTestButton)
-            }, label: {
-                Text("ButtonText")
-            })
             ForEach(store.workOutInfoModel.workOutItems) { workOutItem in
                 Text(workOutItem.title)
                 ForEach(workOutItem.wodSet, id: \.self) { wodSet in
@@ -114,7 +112,7 @@ struct WodView: View {
 }
 
 #Preview {
-    WodView(store: Store(initialState: WodFeature.State(workOutInfoModel: .preview)) {
+    WodView(store: Store(initialState: WodFeature.State(parentId: UUID(), id: UUID(), workOutInfoModel: .preview)) {
         WodFeature()
     })
 }

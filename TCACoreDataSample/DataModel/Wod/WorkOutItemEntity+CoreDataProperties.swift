@@ -22,7 +22,7 @@ extension WorkOutItemEntity {
     @NSManaged public var title: String
     @NSManaged public var unit: String
     @NSManaged public var unitValue: Int16
-    @NSManaged public var wodSet: NSSet
+    @NSManaged public var wodSet: Set<WodSetEntity>
 
 }
 

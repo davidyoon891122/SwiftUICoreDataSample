@@ -57,7 +57,7 @@ final class WodCoreDataProvider {
             $0 as? WorkOutInfoEntity
         }
         .map {
-            WodFeature.State(workOutInfoEntity: $0)
+            WodFeature.State(parentId: id, workOutInfoEntity: $0)
         }
     }
 
@@ -87,9 +87,9 @@ final class WodCoreDataProvider {
         guard let targetWodProgram = targetWodProgram else { return .init(updatedWod: nil, allWods: []) }
         
         let result = targetWodProgram.workOutInfos.compactMap { $0 as? WorkOutInfoEntity }
-//        let workoutItems = result.compactMap { $0.workOutItem as? WorkOutItemEntity }
+        let item = result.filter { $0.id == wodState.workOutInfoModel.id }
         
-        print(type(of: result.first?.workOutItem))
+        
         
         return .init(updatedWod: nil, allWods: [])
     }

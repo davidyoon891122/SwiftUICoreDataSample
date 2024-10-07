@@ -29,7 +29,7 @@ extension WorkOutItemEntity {
             newItem.unitValue = Int16(model.unitValue)
             newItem.set = Int16(model.set)
             let wodSet = WodSetEntity.createWodSetEntity(with: context, models: model.wodSet)
-            newItem.wodSet = NSSet(array: wodSet)
+            newItem.wodSet = Set(wodSet)
             return newItem
         }
     }

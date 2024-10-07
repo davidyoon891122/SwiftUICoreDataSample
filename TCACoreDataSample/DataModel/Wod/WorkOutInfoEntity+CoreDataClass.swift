@@ -24,7 +24,7 @@ extension WorkOutInfoEntity {
             let newItem = WorkOutInfoEntity(context: context)
             newItem.type = model.type.rawValue
             let workOutItem = WorkOutItemEntity.createWorkoutItemEntity(with: context, models: model.workOutItems)
-            newItem.workOutItem = NSSet(array: workOutItem)
+            newItem.workOutItem = Set(workOutItem)
             return newItem
         }
     }

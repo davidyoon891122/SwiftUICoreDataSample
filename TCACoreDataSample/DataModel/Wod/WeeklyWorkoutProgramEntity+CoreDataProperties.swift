@@ -23,7 +23,7 @@ extension WeeklyWorkoutProgramEntity {
     @NSManaged public var subTitle: String
     @NSManaged public var title: String
     @NSManaged public var type: String
-    @NSManaged public var workOutInfos: NSSet
+    @NSManaged public var workOutInfos: Set<WorkOutInfoEntity>
 
 }
 
