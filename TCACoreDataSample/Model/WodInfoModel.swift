@@ -13,10 +13,10 @@ struct WodInfoModel: Equatable {
     let level: LevelType
     let weeklyWorkoutPrograms: [WeeklyWorkoutProgramModel]
 
-    init(entity: WodInfoEntity) {
+    init(entity: ProgramsEntity) {
         self.methodType = ProgramMethodType(rawValue: entity.methodType) ?? .body
         self.level = LevelType(rawValue: entity.level) ?? .beginner
-        self.weeklyWorkoutPrograms = entity.weeklyWorkoutProgram.map {
+        self.weeklyWorkoutPrograms = entity.weeklyWorkouts.map {
             WeeklyWorkoutProgramModel(entity: $0)
         }
     }

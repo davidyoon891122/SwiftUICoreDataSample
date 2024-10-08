@@ -1,5 +1,5 @@
 //
-//  WodInfoEntity+CoreDataProperties.swift
+//  ProgramsEntity+CoreDataProperties.swift
 //  TCACoreDataSample
 //
 //  Created by Jiwon Yoon on 10/5/24.
@@ -10,26 +10,26 @@ import Foundation
 import CoreData
 
 
-extension WodInfoEntity {
+extension ProgramsEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<WodInfoEntity> {
-        return NSFetchRequest<WodInfoEntity>(entityName: "WodInfoEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ProgramsEntity> {
+        return NSFetchRequest<ProgramsEntity>(entityName: "WodInfoEntity")
     }
 
     @NSManaged public var level: String
     @NSManaged public var methodType: String
-    @NSManaged public var weeklyWorkoutProgram: Set<WeeklyWorkoutProgramEntity>
+    @NSManaged public var weeklyWorkouts: Set<WeeklyWorkoutEntity>
 
 }
 
 // MARK: Generated accessors for weeklyWorkoutProgram
-extension WodInfoEntity {
+extension ProgramsEntity {
 
     @objc(addWeeklyWorkoutProgramObject:)
-    @NSManaged public func addToWeeklyWorkoutProgram(_ value: WeeklyWorkoutProgramEntity)
+    @NSManaged public func addToWeeklyWorkoutProgram(_ value: WeeklyWorkoutEntity)
 
     @objc(removeWeeklyWorkoutProgramObject:)
-    @NSManaged public func removeFromWeeklyWorkoutProgram(_ value: WeeklyWorkoutProgramEntity)
+    @NSManaged public func removeFromWeeklyWorkoutProgram(_ value: WeeklyWorkoutEntity)
 
     @objc(addWeeklyWorkoutProgram:)
     @NSManaged public func addToWeeklyWorkoutProgram(_ values: NSSet)
@@ -39,6 +39,6 @@ extension WodInfoEntity {
 
 }
 
-extension WodInfoEntity : Identifiable {
+extension ProgramsEntity : Identifiable {
 
 }

@@ -18,7 +18,7 @@ struct WeeklyWorkoutProgramModel: Equatable {
     let maxExpectedCalories: Int
     let workoutInfos: [WorkOutInfoModel]
 
-    init(entity: WeeklyWorkoutProgramEntity) {
+    init(entity: WeeklyWorkoutEntity) {
         self.id = entity.id
         self.type = WorkOutDayTagType(rawValue: entity.type) ?? .default
         self.title = entity.title
@@ -26,7 +26,7 @@ struct WeeklyWorkoutProgramModel: Equatable {
         self.expectedMinutes = Int(entity.expectedMinutes)
         self.minExpectedCalories = Int(entity.minExpectedCalories)
         self.maxExpectedCalories = Int(entity.maxExpectedCalories)
-        self.workoutInfos = entity.workOutInfos.map {
+        self.workoutInfos = entity.dayWorkouts.map {
             WorkOutInfoModel(entity: $0)
         }
     }

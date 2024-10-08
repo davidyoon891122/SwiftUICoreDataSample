@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension WorkOutItemEntity {
+extension WodEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<WorkOutItemEntity> {
-        return NSFetchRequest<WorkOutItemEntity>(entityName: "WorkOutItemEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<WodEntity> {
+        return NSFetchRequest<WodEntity>(entityName: "WorkOutItemEntity")
     }
 
     @NSManaged public var id: UUID
@@ -27,7 +27,7 @@ extension WorkOutItemEntity {
 }
 
 // MARK: Generated accessors for wodSet
-extension WorkOutItemEntity {
+extension WodEntity {
 
     @objc(addWodSetObject:)
     @NSManaged public func addToWodSet(_ value: WodSetEntity)
@@ -43,6 +43,6 @@ extension WorkOutItemEntity {
 
 }
 
-extension WorkOutItemEntity : Identifiable {
+extension WodEntity : Identifiable {
 
 }

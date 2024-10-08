@@ -9,19 +9,19 @@
 import Foundation
 import CoreData
 
-@objc(WorkOutItemEntity)
-public class WorkOutItemEntity: NSManagedObject {
+@objc(WodEntity)
+public class WodEntity: NSManagedObject {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         self.id = UUID()
     }
 }
 
-extension WorkOutItemEntity {
+extension WodEntity {
 
-    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WorkOutItemModel]) -> [WorkOutItemEntity] {
+    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WorkOutItemModel]) -> [WodEntity] {
         models.map { model in
-            let newItem = WorkOutItemEntity(context: context)
+            let newItem = WodEntity(context: context)
             newItem.id = UUID()
             newItem.title = model.title
             newItem.subTitle = model.subTitle
@@ -34,8 +34,8 @@ extension WorkOutItemEntity {
         }
     }
     
-    static func convertModelToEntity(with context: NSManagedObjectContext, model: WorkOutItemModel) -> WorkOutItemEntity {
-        let newItem = WorkOutItemEntity(context: context)
+    static func convertModelToEntity(with context: NSManagedObjectContext, model: WorkOutItemModel) -> WodEntity {
+        let newItem = WodEntity(context: context)
         newItem.id = model.id
         newItem.title = model.title
         newItem.subTitle = model.subTitle

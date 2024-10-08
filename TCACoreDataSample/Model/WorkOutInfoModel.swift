@@ -13,9 +13,9 @@ struct WorkOutInfoModel: Equatable {
     let type: WorkOutType
     var workOutItems: [WorkOutItemModel]
 
-    init(entity: WorkOutInfoEntity) {
+    init(entity: DayWorkoutEntity) {
         self.type = WorkOutType(rawValue: entity.type) ?? .coolDown
-        self.workOutItems = entity.workOutItem.map {
+        self.workOutItems = entity.wods.map {
             WorkOutItemModel(entity: $0)
         }
         self.id = entity.id

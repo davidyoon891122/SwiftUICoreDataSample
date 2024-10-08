@@ -17,7 +17,7 @@ struct WorkOutItemModel: Equatable, Identifiable {
     let set: Int
     var wodSet: [WodSetModel]
 
-    init(entity: WorkOutItemEntity) {
+    init(entity: WodEntity) {
         self.id = entity.id
         self.title = entity.title
         self.subTitle = entity.subTitle

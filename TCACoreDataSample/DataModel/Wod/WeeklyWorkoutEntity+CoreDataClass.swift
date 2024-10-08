@@ -1,5 +1,5 @@
 //
-//  WeeklyWorkoutProgramEntity+CoreDataClass.swift
+//  WeeklyWorkoutEntity+CoreDataClass.swift
 //  TCACoreDataSample
 //
 //  Created by Jiwon Yoon on 10/5/24.
@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-@objc(WeeklyWorkoutProgramEntity)
-public class WeeklyWorkoutProgramEntity: NSManagedObject {
+@objc(WeeklyWorkoutEntity)
+public class WeeklyWorkoutEntity: NSManagedObject {
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -19,19 +19,19 @@ public class WeeklyWorkoutProgramEntity: NSManagedObject {
 
 }
 
-extension WeeklyWorkoutProgramEntity {
+extension WeeklyWorkoutEntity {
 
-    static func createProgramEntities(with context: NSManagedObjectContext, programModel: [WeeklyWorkoutProgramModel]) -> [WeeklyWorkoutProgramEntity] {
+    static func createProgramEntities(with context: NSManagedObjectContext, programModel: [WeeklyWorkoutProgramModel]) -> [WeeklyWorkoutEntity] {
         programModel.map { model in
-            let newItem = WeeklyWorkoutProgramEntity(context: context)
+            let newItem = WeeklyWorkoutEntity(context: context)
             newItem.type = model.type.rawValue
             newItem.title = model.title
             newItem.subTitle = model.subTitle
             newItem.expectedMinutes = Int16(model.expectedMinutes)
             newItem.minExpectedCalories = Int16(model.minExpectedCalories)
             newItem.maxExpectedCalories = Int16(model.maxExpectedCalories)
-            let workOutInfos = WorkOutInfoEntity.createWorkoutInfoEntities(with: context, models: model.workoutInfos)
-            newItem.workOutInfos = Set(workOutInfos)
+            let workOutInfos = DayWorkoutEntity.createWorkoutInfoEntities(with: context, models: model.workoutInfos)
+            newItem.dayWorkouts = Set(workOutInfos)
             return newItem
         }
     }

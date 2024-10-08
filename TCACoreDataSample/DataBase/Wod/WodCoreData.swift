@@ -44,8 +44,8 @@ final class WodCoreData {
 
 extension WodCoreData {
 
-    func fetchRequest() -> NSFetchRequest<WodInfoEntity> {
-        let request = NSFetchRequest<WodInfoEntity>(entityName: Constants.entityName)
+    func fetchRequest() -> NSFetchRequest<ProgramsEntity> {
+        let request = NSFetchRequest<ProgramsEntity>(entityName: Constants.entityName)
 
         request.sortDescriptors = [NSSortDescriptor(key: "level", ascending: true)]
 
@@ -54,7 +54,7 @@ extension WodCoreData {
 
     enum Constants {
         static let dbName = "WodCoreDataSample"
-        static let entityName = "WodInfoEntity"
+        static let entityName = "ProgramsEntity"
     }
 
 }

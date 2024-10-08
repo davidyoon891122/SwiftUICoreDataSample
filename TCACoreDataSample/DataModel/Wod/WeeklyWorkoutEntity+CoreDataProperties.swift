@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension WeeklyWorkoutProgramEntity {
+extension WeeklyWorkoutEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<WeeklyWorkoutProgramEntity> {
-        return NSFetchRequest<WeeklyWorkoutProgramEntity>(entityName: "WeeklyWorkoutProgramEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<WeeklyWorkoutEntity> {
+        return NSFetchRequest<WeeklyWorkoutEntity>(entityName: "WeeklyWorkoutProgramEntity")
     }
 
     @NSManaged public var id: UUID
@@ -23,18 +23,18 @@ extension WeeklyWorkoutProgramEntity {
     @NSManaged public var subTitle: String
     @NSManaged public var title: String
     @NSManaged public var type: String
-    @NSManaged public var workOutInfos: Set<WorkOutInfoEntity>
+    @NSManaged public var dayWorkouts: Set<DayWorkoutEntity>
 
 }
 
 // MARK: Generated accessors for workOutInfos
-extension WeeklyWorkoutProgramEntity {
+extension WeeklyWorkoutEntity {
 
     @objc(addWorkOutInfosObject:)
-    @NSManaged public func addToWorkOutInfos(_ value: WorkOutInfoEntity)
+    @NSManaged public func addToWorkOutInfos(_ value: DayWorkoutEntity)
 
     @objc(removeWorkOutInfosObject:)
-    @NSManaged public func removeFromWorkOutInfos(_ value: WorkOutInfoEntity)
+    @NSManaged public func removeFromWorkOutInfos(_ value: DayWorkoutEntity)
 
     @objc(addWorkOutInfos:)
     @NSManaged public func addToWorkOutInfos(_ values: NSSet)
@@ -44,6 +44,6 @@ extension WeeklyWorkoutProgramEntity {
 
 }
 
-extension WeeklyWorkoutProgramEntity : Identifiable {
+extension WeeklyWorkoutEntity : Identifiable {
 
 }

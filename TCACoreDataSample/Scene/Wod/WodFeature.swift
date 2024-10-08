@@ -17,7 +17,7 @@ struct WodFeature {
         var id: UUID
         var workOutInfoModel: WorkOutInfoModel
 
-        init(parentId: UUID, workOutInfoEntity: WorkOutInfoEntity) {
+        init(parentId: UUID, workOutInfoEntity: DayWorkoutEntity) {
             self.parentId = parentId
             self.id = workOutInfoEntity.id
             self.workOutInfoModel = .init(entity: workOutInfoEntity)

@@ -21,7 +21,7 @@ struct WodProgramFeature {
             self.workoutProgramModel = workoutProgramModel
         }
 
-        init(workoutProgramEntity: WeeklyWorkoutProgramEntity) {
+        init(workoutProgramEntity: WeeklyWorkoutEntity) {
             self.id = UUID()
             self.workoutProgramModel = .init(entity: workoutProgramEntity)
         }
