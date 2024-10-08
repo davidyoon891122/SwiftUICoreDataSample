@@ -19,7 +19,7 @@ struct UserListFeature {
     enum Action {
         case onAppear
         case didTapAddUserButton
-        case user(id: UserFeature.State.ID, action: UserFeature.Action)
+        case user(IdentifiedActionOf<UserFeature>)
         case getAllUsers(TaskResult<[UserFeature.State]>)
         case userAddResponse(TaskResult<UserAddResponse>)
         case userDeleteResponse(TaskResult<UserRemoveResponse>)
@@ -98,7 +98,7 @@ struct UserListFeature {
                 }
             }
         }
-        .forEach(\.users, action: /Action.user(id:action:)) {
+        .forEach(\.users, action: \.user) {
             UserFeature()
         }
     }
@@ -114,14 +114,12 @@ struct UserListView: View {
         WithPerceptionTracking {
             NavigationStack {
                 VStack {
-                    
-                    ForEachStore(store.scope(state: \.users, action: \.user)) { store in
+                    ForEach(store.scope(state: \.users, action: \.user)) { store in
                         UserView(store: store)
                     }
                     .onDelete { indexSet in
                         store.send(.deleteUser(indexSet))
                     }
-                
                 }
                 .onAppear {
                     store.send(.onAppear)

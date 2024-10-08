@@ -32,10 +32,8 @@ struct WodFeature {
     }
 
     enum Action {
-        case onAppear
         case didTapCompleteButton(UUID)
         case updateWodResponse(Result<UpdateWodResponse, Error>)
-        case didTapTestButton
     }
     
     @Dependency(\.wodClient) var wodClient
@@ -43,9 +41,6 @@ struct WodFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                print("OnAppear")
-                return .none
             case .didTapCompleteButton(let id):
                 for itemIndex in state.workOutInfoModel.workOutItems.indices {
                     if let setIndex = state.workOutInfoModel.workOutItems[itemIndex].wodSet.firstIndex(where: { $0.id == id }) {
@@ -63,14 +58,8 @@ struct WodFeature {
                     }
                 }
             case .updateWodResponse(.success(let response)):
-                
                 return .none
-                
             case .updateWodResponse(.failure(let error)):
-                
-                return .none
-            case .didTapTestButton:
-                print("DidTapTestButton")
                 return .none
             }
         }
@@ -85,28 +74,27 @@ struct WodView: View {
     let store: StoreOf<WodFeature>
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("WodView")
-            ForEach(store.workOutInfoModel.workOutItems) { workOutItem in
-                Text(workOutItem.title)
-                ForEach(workOutItem.wodSet.sorted(by: {$0.unitValue < $1.unitValue}), id: \.self) { wodSet in
-                    HStack {
-                        Text("\(wodSet.unitValue)")
-                        Spacer()
-                        Button(action: {
-                            store.send(.didTapCompleteButton(wodSet.id))
-                        }, label: {
-                            wodSet.isCompleted ? Image(systemName: "circle") : Image(systemName: "xmark")
-                        })
+        WithPerceptionTracking {
+            VStack(alignment: .leading) {
+                Text("WodView")
+                ForEach(store.workOutInfoModel.workOutItems) { workOutItem in
+                    Text(workOutItem.title)
+                    ForEach(workOutItem.wodSet.sorted(by: {$0.unitValue < $1.unitValue}), id: \.self) { wodSet in
+                        HStack {
+                            Text("\(wodSet.unitValue)")
+                            Spacer()
+                            Button(action: {
+                                store.send(.didTapCompleteButton(wodSet.id))
+                            }, label: {
+                                wodSet.isCompleted ? Image(systemName: "circle") : Image(systemName: "xmark")
+                            })
+                        }
+                        .frame(height: 56.0)
                     }
-                    .frame(height: 56.0)
                 }
             }
+            .padding(.horizontal)
         }
-        .onAppear {
-            store.send(.onAppear)
-        }
-        .padding(.horizontal)
     }
 
 }

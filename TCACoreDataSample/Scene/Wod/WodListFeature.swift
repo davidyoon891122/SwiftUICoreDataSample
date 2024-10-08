@@ -19,7 +19,7 @@ struct WodListFeature {
 
     enum Action {
         case onAppear
-        case wodActions(id: WodFeature.State.ID, action: WodFeature.Action)
+        case wodActions(IdentifiedActionOf<WodFeature>)
         case getAllWodStates(Result<[WodFeature.State], Error>)
     }
 
@@ -48,7 +48,7 @@ struct WodListFeature {
                 return .none
             }
         }
-        .forEach(\.wodStates, action: /Action.wodActions(id:action:)) {
+        .forEach(\.wodStates, action: \.wodActions) {
             WodFeature()
         }
     }
@@ -63,8 +63,8 @@ struct WodListView: View {
     var body: some View {
         VStack {
             ScrollView {
-                LazyVStack {
-                    ForEachStore(store.scope(state: \.wodStates, action: \.wodActions)) { store in
+                VStack {
+                    ForEach(store.scope(state: \.wodStates, action: \.wodActions)) { store in
                         WodView(store: store)
                     }                    
                 }
