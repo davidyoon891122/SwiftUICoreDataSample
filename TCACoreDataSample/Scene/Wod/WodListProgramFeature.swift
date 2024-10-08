@@ -25,6 +25,8 @@ struct WodListProgramFeature {
         case wodAddResponse(Result<[WodProgramFeature.State], Error>)
         case path(StackAction<WodListFeature.State, WodListFeature.Action>)
         case didTapProgramView(UUID)
+        case remove
+        case removeWodProgram(Result<[WodProgramFeature.State], Error>)
     }
 
     @Dependency(\.wodClient) var wodClient
@@ -57,6 +59,8 @@ struct WodListProgramFeature {
                         let response = try wodClient.addWodProgram()
                         await send(.wodAddResponse(.success(response.programStates)))
                     } catch {
+                        print(error.localizedDescription)
+                        
                         await send(.wodAddResponse(.failure(error)))
                     }
                 }
@@ -70,6 +74,21 @@ struct WodListProgramFeature {
                 return .none
             case .didTapProgramView(let uuid):
                 state.path.append(WodListFeature.State(id: uuid))
+                return .none
+            case .remove:
+                return .run { send in
+                    do {
+                        let response = try wodClient.removeWodProgram()
+                        await send(.removeWodProgram(.success(response.allWods)))
+                    } catch {
+                        await send(.removeWodProgram(.failure(error)))
+                    }
+                }
+            case .removeWodProgram(.success(let result)):
+                state.wodProgramStates = IdentifiedArray(uniqueElements: result)
+                return .none
+            case .removeWodProgram(.failure(let error)):
+                state.wodProgramStates = []
                 return .none
             }
         }
@@ -98,6 +117,11 @@ struct WodListProgramView: View {
                             .foregroundStyle(.black)
                     })
                     .padding()
+                    Button(action: {
+                        store.send(.remove)
+                    }, label: {
+                        Text("Remove")
+                    })
                     List {
                         ForEachStore(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { programStore in
                             WodProgramView(store: programStore)

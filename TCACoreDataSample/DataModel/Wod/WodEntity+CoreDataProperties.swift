@@ -13,7 +13,7 @@ import CoreData
 extension WodEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<WodEntity> {
-        return NSFetchRequest<WodEntity>(entityName: "WorkOutItemEntity")
+        return NSFetchRequest<WodEntity>(entityName: "WodEntity")
     }
 
     @NSManaged public var id: UUID

@@ -13,7 +13,7 @@ import CoreData
 extension DayWorkoutEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<DayWorkoutEntity> {
-        return NSFetchRequest<DayWorkoutEntity>(entityName: "WorkOutInfoEntity")
+        return NSFetchRequest<DayWorkoutEntity>(entityName: "DayWorkoutEntity")
     }
 
     @NSManaged public var id: UUID

@@ -25,8 +25,6 @@ final class WodCoreDataProvider {
     }
 
     func addWodInfoEntity() throws -> AddWodInfoEntityResponse {
-        self.removeWodInfoEntity()
-
         let wodInfoEntity = ProgramsEntity.instance(with: self.context, model: WodInfoModel.mock)
 
         let wodProgramStates = wodInfoEntity.weeklyWorkouts.compactMap {
@@ -53,17 +51,18 @@ final class WodCoreDataProvider {
         }
     }
 
-    func removeWodInfoEntity() {
-        guard let entities = try? self.fetchAllWodInfo() else { return }
+    func removeWodInfoEntity() throws ->  RemoveWodResponse {
+        guard let entities = try? self.fetchAllWodInfo() else { return .init(allWods: []) }
 
         entities.forEach {
             let item = context.object(with: $0.objectID)
             context.delete(item)
         }
-
-        try? context.save()
-
+        
+        try context.save()
         print("Delete Completed")
+        
+        return .init(allWods: [])
     }
     
     func updateWodState(id: UUID, wodState: WodFeature.State) throws -> UpdateWodResponse {

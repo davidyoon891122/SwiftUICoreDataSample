@@ -18,6 +18,7 @@ extension WodSetEntity {
 
     @NSManaged public var isCompleted: Bool
     @NSManaged public var unitValue: Int16
+    @NSManaged public var order: Int16
 
 }
 

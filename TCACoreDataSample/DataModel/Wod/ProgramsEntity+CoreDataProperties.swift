@@ -13,7 +13,7 @@ import CoreData
 extension ProgramsEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ProgramsEntity> {
-        return NSFetchRequest<ProgramsEntity>(entityName: "WodInfoEntity")
+        return NSFetchRequest<ProgramsEntity>(entityName: "ProgramsEntity")
     }
 
     @NSManaged public var level: String
