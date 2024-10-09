@@ -24,6 +24,7 @@ extension WeeklyWorkoutEntity {
     static func createProgramEntities(with context: NSManagedObjectContext, programModel: [WeeklyWorkoutProgramModel]) -> [WeeklyWorkoutEntity] {
         programModel.map { model in
             let newItem = WeeklyWorkoutEntity(context: context)
+            newItem.id = model.id
             newItem.type = model.type.rawValue
             newItem.title = model.title
             newItem.subTitle = model.subTitle

@@ -22,6 +22,7 @@ extension DayWorkoutEntity {
     static func createWorkoutInfoEntities(with context: NSManagedObjectContext, models: [WorkOutInfoModel]) -> [DayWorkoutEntity] {
         return models.map { model in
             let newItem = DayWorkoutEntity(context: context)
+            newItem.id = model.id
             newItem.type = model.type.rawValue
             let workOutItem = WodEntity.createWorkoutItemEntity(with: context, models: model.workOutItems)
             newItem.wods = Set(workOutItem)

@@ -15,14 +15,14 @@ struct WodSetModel: Equatable, Hashable {
     var isCompleted: Bool
 
     init(entity: WodSetEntity) {
-        self.id = UUID()
+        self.id = entity.id
         self.order = Int(entity.order)
         self.unitValue = Int(entity.unitValue)
         self.isCompleted = entity.isCompleted
     }
 
-    init(order: Int, unitValue: Int, isCompleted: Bool) {
-        self.id = UUID()
+    init(id: UUID, order: Int, unitValue: Int, isCompleted: Bool) {
+        self.id = id
         self.order = order
         self.unitValue = unitValue
         self.isCompleted = isCompleted

@@ -22,7 +22,7 @@ extension WodEntity {
     static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WorkOutItemModel]) -> [WodEntity] {
         models.map { model in
             let newItem = WodEntity(context: context)
-            newItem.id = UUID()
+            newItem.id = model.id
             newItem.title = model.title
             newItem.subTitle = model.subTitle
             newItem.unit = model.unit.rawValue

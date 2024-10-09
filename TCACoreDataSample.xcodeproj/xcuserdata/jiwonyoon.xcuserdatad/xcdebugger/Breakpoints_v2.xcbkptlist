@@ -64,7 +64,39 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
             endingLineNumber = "85"
-            landmarkName = "fetchWodInfo()"
+            landmarkName = "updateWodState(id:wodState:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4FD89AEC-156E-4826-9E48-EDF0C2B1AF6A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TCACoreDataSample/DataBase/Wod/WodCoreDataProvider.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "removeWodInfoEntity()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "63DA0424-0F88-4E80-9BBB-BCBB3240D426"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TCACoreDataSample/DataBase/Wod/WodCoreDataProvider.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "addWodInfoEntity()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

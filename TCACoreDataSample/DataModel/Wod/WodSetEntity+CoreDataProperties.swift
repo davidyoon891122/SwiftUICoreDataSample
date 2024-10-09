@@ -16,6 +16,7 @@ extension WodSetEntity {
         return NSFetchRequest<WodSetEntity>(entityName: "WodSetEntity")
     }
 
+    @NSManaged public var id: UUID
     @NSManaged public var isCompleted: Bool
     @NSManaged public var unitValue: Int16
     @NSManaged public var order: Int16

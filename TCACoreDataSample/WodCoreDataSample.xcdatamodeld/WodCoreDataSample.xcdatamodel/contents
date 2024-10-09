@@ -6,6 +6,7 @@
         <relationship name="wods" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WodEntity"/>
     </entity>
     <entity name="ProgramsEntity" representedClassName="ProgramsEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="level" attributeType="String"/>
         <attribute name="methodType" attributeType="String"/>
         <relationship name="weeklyWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeeklyWorkoutEntity"/>
@@ -30,6 +31,7 @@
         <relationship name="wodSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WodSetEntity"/>
     </entity>
     <entity name="WodSetEntity" representedClassName="WodSetEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="unitValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

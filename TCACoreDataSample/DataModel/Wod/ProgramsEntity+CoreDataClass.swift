@@ -12,12 +12,18 @@ import CoreData
 @objc(ProgramsEntity)
 public class ProgramsEntity: NSManagedObject {
 
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.id = UUID()
+    }
+
 }
 
 extension ProgramsEntity {
 
     static func instance(with context: NSManagedObjectContext, model: WodInfoModel) -> ProgramsEntity {
         let newWodInfoEntity = ProgramsEntity(context: context)
+        newWodInfoEntity.id = model.id
         newWodInfoEntity.level = model.level.rawValue
         newWodInfoEntity.methodType = model.methodType.rawValue
         let weeklyWorkoutProgram = WeeklyWorkoutEntity.createProgramEntities(with: context, programModel: model.weeklyWorkoutPrograms)

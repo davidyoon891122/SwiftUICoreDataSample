@@ -33,11 +33,11 @@ extension WorkOutInfoModel {
 
     static let preview: Self = .init(id: UUID(), type: .warmUp, workOutItems: [
         .init(id: UUID(), title: "트레드밀", subTitle: "lowing abc", unit: .minutes, unitValue: 5, set: 1, wodSet: [
-            .init(order: 1, unitValue: 1, isCompleted: false)
+            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false)
         ]),
         .init(id: UUID(), title: "시티드 덤벨 바이셉스 컬", subTitle: "lowing abc", unit: .repetitions, unitValue: 12, set: 2, wodSet: [
-            .init(order: 1, unitValue: 1, isCompleted: false),
-            .init(order: 2, unitValue: 2, isCompleted: false)
+            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
         ])
     ])
 

@@ -8,12 +8,14 @@
 import Foundation
 
 struct WodInfoModel: Equatable {
-    
+
+    let id: UUID
     let methodType: ProgramMethodType
     let level: LevelType
     let weeklyWorkoutPrograms: [WeeklyWorkoutProgramModel]
 
     init(entity: ProgramsEntity) {
+        self.id = entity.id
         self.methodType = ProgramMethodType(rawValue: entity.methodType) ?? .body
         self.level = LevelType(rawValue: entity.level) ?? .beginner
         self.weeklyWorkoutPrograms = entity.weeklyWorkouts.map {
@@ -21,7 +23,8 @@ struct WodInfoModel: Equatable {
         }
     }
 
-    init(methodType: ProgramMethodType, level: LevelType, weeklyWorkoutPrograms: [WeeklyWorkoutProgramModel]) {
+    init(id: UUID, methodType: ProgramMethodType, level: LevelType, weeklyWorkoutPrograms: [WeeklyWorkoutProgramModel]) {
+        self.id = id
         self.methodType = methodType
         self.level = level
         self.weeklyWorkoutPrograms = weeklyWorkoutPrograms
@@ -31,7 +34,7 @@ struct WodInfoModel: Equatable {
 
 extension WodInfoModel {
 
-    static let mock: Self = .init(methodType: .body, level: .beginner, weeklyWorkoutPrograms: [
+    static let mock: Self = .init(id: UUID(), methodType: .body, level: .beginner, weeklyWorkoutPrograms: [
         .init(id: UUID(),
               type: .start,
               title: "알파 데이",
@@ -48,7 +51,7 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 1,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "시티드 덤벨 바이셉스 컬",
@@ -57,8 +60,8 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .main, workOutItems: [
@@ -69,9 +72,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "힙 어브덕터/애덕터 머신",
@@ -80,9 +83,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "로우 러시안 트위스트",
@@ -91,9 +94,9 @@ extension WodInfoModel {
                           unitValue: 30,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .coolDown, workOutItems: [
@@ -104,8 +107,8 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "타이거 크롤",
@@ -114,8 +117,8 @@ extension WodInfoModel {
                           unitValue: 20,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ])
               ]),
@@ -135,7 +138,7 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 1,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "시티드 덤벨 바이셉스 컬",
@@ -144,8 +147,8 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .main, workOutItems: [
@@ -156,9 +159,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "힙 어브덕터/애덕터 머신",
@@ -167,9 +170,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "로우 러시안 트위스트",
@@ -178,9 +181,9 @@ extension WodInfoModel {
                           unitValue: 30,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .coolDown, workOutItems: [
@@ -191,8 +194,8 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "타이거 크롤",
@@ -201,8 +204,8 @@ extension WodInfoModel {
                           unitValue: 20,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ])
               ]),
@@ -222,7 +225,7 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 1,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "시티드 덤벨 바이셉스 컬",
@@ -231,8 +234,8 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .main, workOutItems: [
@@ -243,9 +246,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "힙 어브덕터/애덕터 머신",
@@ -254,9 +257,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "로우 러시안 트위스트",
@@ -265,9 +268,9 @@ extension WodInfoModel {
                           unitValue: 30,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .coolDown, workOutItems: [
@@ -278,8 +281,8 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "타이거 크롤",
@@ -288,8 +291,8 @@ extension WodInfoModel {
                           unitValue: 20,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ])
               ]),
@@ -309,7 +312,7 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 1,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "시티드 덤벨 바이셉스 컬",
@@ -318,8 +321,8 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .main, workOutItems: [
@@ -330,9 +333,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "힙 어브덕터/애덕터 머신",
@@ -341,9 +344,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "로우 러시안 트위스트",
@@ -352,9 +355,9 @@ extension WodInfoModel {
                           unitValue: 30,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .coolDown, workOutItems: [
@@ -365,8 +368,8 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "타이거 크롤",
@@ -375,8 +378,8 @@ extension WodInfoModel {
                           unitValue: 20,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ])
               ]),
@@ -396,7 +399,7 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 1,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "시티드 덤벨 바이셉스 컬",
@@ -405,8 +408,8 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .main, workOutItems: [
@@ -417,9 +420,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "힙 어브덕터/애덕터 머신",
@@ -428,9 +431,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "로우 러시안 트위스트",
@@ -439,9 +442,9 @@ extension WodInfoModel {
                           unitValue: 30,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .coolDown, workOutItems: [
@@ -452,8 +455,8 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "타이거 크롤",
@@ -462,8 +465,8 @@ extension WodInfoModel {
                           unitValue: 20,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ])
               ]),
@@ -483,7 +486,7 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 1,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "시티드 덤벨 바이셉스 컬",
@@ -492,8 +495,8 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .main, workOutItems: [
@@ -504,9 +507,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "힙 어브덕터/애덕터 머신",
@@ -515,9 +518,9 @@ extension WodInfoModel {
                           unitValue: 12,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "로우 러시안 트위스트",
@@ -526,9 +529,9 @@ extension WodInfoModel {
                           unitValue: 30,
                           set: 3,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false),
-                            .init(order: 3, unitValue: 3, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false),
+                            .init(id: UUID(), order: 3, unitValue: 3, isCompleted: false)
                           ]),
                 ]),
                 .init(id: UUID(), type: .coolDown, workOutItems: [
@@ -539,8 +542,8 @@ extension WodInfoModel {
                           unitValue: 5,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                     .init(id: UUID(),
                           title: "타이거 크롤",
@@ -549,8 +552,8 @@ extension WodInfoModel {
                           unitValue: 20,
                           set: 2,
                           wodSet: [
-                            .init(order: 1, unitValue: 1, isCompleted: false),
-                            .init(order: 2, unitValue: 2, isCompleted: false)
+                            .init(id: UUID(), order: 1, unitValue: 1, isCompleted: false),
+                            .init(id: UUID(), order: 2, unitValue: 2, isCompleted: false)
                           ]),
                 ])
               ])
