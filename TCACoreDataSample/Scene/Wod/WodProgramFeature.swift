@@ -15,6 +15,11 @@ struct WodProgramFeature {
     struct State: Equatable, Identifiable {
         let id: UUID
         var workoutProgramModel: WeeklyWorkoutModel
+        var isCompleted: Bool {
+            get {
+                workoutProgramModel.isCompleteAllItem
+            }
+        }
 
         init(workoutProgramModel: WeeklyWorkoutModel) {
             self.id = UUID()
@@ -29,13 +34,15 @@ struct WodProgramFeature {
     }
 
     enum Action {
-
+        case didTapComplete
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-
+            case .didTapComplete:
+                
+                return .none
             }
         }
     }
@@ -48,11 +55,19 @@ struct WodProgramView: View {
     let store: StoreOf<WodProgramFeature>
 
     var body: some View {
-        HStack {
-            Text(store.workoutProgramModel.type.rawValue)
-            VStack(alignment: .leading) {
-                Text(store.workoutProgramModel.title)
-                Text(store.workoutProgramModel.subTitle)
+        WithPerceptionTracking {
+            HStack {
+                Text(store.workoutProgramModel.type.rawValue)
+                VStack(alignment: .leading) {
+                    Text(store.workoutProgramModel.title)
+                    Text(store.workoutProgramModel.subTitle)
+                }
+                Spacer()
+                Button(action: {
+                    store.send(.didTapComplete)
+                }, label: {
+                    Image(systemName: store.isCompleted ? "circle" : "xmark")
+                })
             }
         }
     }

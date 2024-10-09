@@ -44,6 +44,14 @@ struct WeeklyWorkoutModel: Equatable {
 
 }
 
+extension WeeklyWorkoutModel {
+
+    var isCompleteAllItem: Bool {
+        self.workoutInfos.allSatisfy { $0.wods.allSatisfy { $0.wodSet.allSatisfy { $0.isCompleted }}}
+    }
+
+}
+
 enum WorkOutDayTagType: String, Codable {
 
     case start
