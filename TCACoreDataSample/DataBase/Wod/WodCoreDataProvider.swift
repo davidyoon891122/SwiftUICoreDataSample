@@ -98,13 +98,19 @@ final class WodCoreDataProvider {
         return .init(updatedWod: nil, allWods: [])
     }
 
+
+    // RecentCompletedWods
+
+//    func getRecentWodsStates() throws -> {
+//
+//    }
+
 }
 
 private extension WodCoreDataProvider {
 
     func fetchWodInfo() throws -> ProgramsEntity? {
         let wodInfo = try context.fetch(WodCoreData.shared.fetchRequest())
-        print(wodInfo.count)
         let firstWod = wodInfo.first
 
         return firstWod
@@ -113,6 +119,12 @@ private extension WodCoreDataProvider {
     func fetchAllWodInfo() throws -> [ProgramsEntity] {
         let wodInfoEntities = try context.fetch(WodCoreData.shared.fetchRequest())
         return wodInfoEntities
+    }
+
+    func fetchRecentCompletedWods() throws -> [RecentCompletedWodEntity] {
+        let recentCompletedWods = try context.fetch(WodCoreData.shared.fetchRecentCompletedWods())
+
+        return recentCompletedWods
     }
 
 }

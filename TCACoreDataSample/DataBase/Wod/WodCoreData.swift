@@ -52,9 +52,18 @@ extension WodCoreData {
         return request
     }
 
+    func fetchRecentCompletedWods() -> NSFetchRequest<RecentCompletedWodEntity> {
+        let request = NSFetchRequest<RecentCompletedWodEntity>(entityName: Constants.recentEntityName)
+
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+
+        return request
+    }
+
     enum Constants {
         static let dbName = "WodCoreDataSample"
         static let entityName = "ProgramsEntity"
+        static let recentEntityName = "RecentCompletedWodEntity"
     }
 
 }
