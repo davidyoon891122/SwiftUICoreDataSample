@@ -1,5 +1,5 @@
 //
-//  WorkOutInfoModel.swift
+//  DayWorkoutModel.swift
 //  TCACoreDataSample
 //
 //  Created by Jiwon Yoon on 10/5/24.
@@ -7,29 +7,29 @@
 
 import Foundation
 
-struct WorkOutInfoModel: Equatable {
+struct DayWorkoutModel: Equatable {
 
     let id: UUID
     let type: WorkOutType
-    var workOutItems: [WorkOutItemModel]
+    var wods: [WodModel]
 
     init(entity: DayWorkoutEntity) {
         self.type = WorkOutType(rawValue: entity.type) ?? .coolDown
-        self.workOutItems = entity.wods.map {
-            WorkOutItemModel(entity: $0)
+        self.wods = entity.wods.map {
+            WodModel(entity: $0 as! WodEntity)
         }
         self.id = entity.id
     }
 
-    init(id: UUID, type: WorkOutType, workOutItems: [WorkOutItemModel]) {
+    init(id: UUID, type: WorkOutType, workOutItems: [WodModel]) {
         self.id = id
         self.type = type
-        self.workOutItems = workOutItems
+        self.wods = workOutItems
     }
 
 }
 
-extension WorkOutInfoModel {
+extension DayWorkoutModel {
 
     static let preview: Self = .init(id: UUID(), type: .warmUp, workOutItems: [
         .init(id: UUID(), title: "트레드밀", subTitle: "lowing abc", unit: .minutes, unitValue: 5, set: 1, wodSet: [

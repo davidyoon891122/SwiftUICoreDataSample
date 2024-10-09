@@ -18,17 +18,18 @@ final class WodCoreDataProvider {
         guard let wodInfoEntity = try self.fetchWodInfo() else { return [] }
 
         let wodProramStates = wodInfoEntity.weeklyWorkouts.map {
-            WodProgramFeature.State(workoutProgramEntity: $0)
+            WodProgramFeature.State(workoutProgramEntity: $0 as! WeeklyWorkoutEntity)
         }
 
         return wodProramStates
     }
 
     func addWodInfoEntity() throws -> AddWodInfoEntityResponse {
-        let wodInfoEntity = ProgramsEntity.instance(with: self.context, model: WodInfoModel.mock)
+        context.reset()
+        let wodInfoEntity = ProgramsEntity.instance(with: self.context, model: ProgramsModel.mock)
 
         let wodProgramStates = wodInfoEntity.weeklyWorkouts.compactMap {
-            return WodProgramFeature.State(workoutProgramEntity: $0)
+            return WodProgramFeature.State(workoutProgramEntity: $0 as! WeeklyWorkoutEntity)
         }
         
         try context.save()
@@ -40,6 +41,7 @@ final class WodCoreDataProvider {
         guard let wodInfoEntity = try self.fetchWodInfo() else { return [] }
 
         let targetWodProgram = wodInfoEntity.weeklyWorkouts
+            .compactMap { $0 as? WeeklyWorkoutEntity }
             .filter { $0.id == id }
             .first
 
@@ -47,11 +49,12 @@ final class WodCoreDataProvider {
 
         return targetWodProgram.dayWorkouts
         .map {
-            WodFeature.State(parentId: id, workOutInfoEntity: $0)
+            WodFeature.State(parentId: id, workOutInfoEntity: $0 as! DayWorkoutEntity)
         }
     }
 
     func removeWodInfoEntity() throws ->  RemoveWodResponse {
+        context.reset()
         guard let entities = try? self.fetchAllWodInfo() else { return .init(allWods: []) }
 
         entities.forEach {
@@ -69,16 +72,17 @@ final class WodCoreDataProvider {
         guard let wodInfoEntity = try self.fetchWodInfo() else { return .init(updatedWod: nil, allWods: []) }
         
         let targetWodProgram = wodInfoEntity.weeklyWorkouts
+            .compactMap { $0 as? WeeklyWorkoutEntity }
             .filter { $0.id == id }
             .first
 
         guard let targetWodProgram = targetWodProgram else { return .init(updatedWod: nil, allWods: []) }
         
-        guard let objectID = targetWodProgram.dayWorkouts.filter({ $0.id == wodState.workOutInfoModel.id }).first?.objectID,
+        guard let objectID = targetWodProgram.dayWorkouts.compactMap({ $0 as? DayWorkoutEntity }).filter({ $0.id == wodState.workOutInfoModel.id }).first?.objectID,
         let workoutInfoEntity = context.object(with: objectID) as? DayWorkoutEntity else { return .init(updatedWod: nil, allWods: [])}
         
         workoutInfoEntity.type = "ModifiedType"
-        workoutInfoEntity.wods = Set(wodState.workOutInfoModel.workOutItems.map {
+        workoutInfoEntity.wods = NSOrderedSet(array: wodState.workOutInfoModel.wods.map {
             WodEntity.convertModelToEntity(with: context, model: $0)
         })
         

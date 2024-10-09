@@ -14,9 +14,9 @@ struct WodProgramFeature {
     @ObservableState
     struct State: Equatable, Identifiable {
         let id: UUID
-        var workoutProgramModel: WeeklyWorkoutProgramModel
+        var workoutProgramModel: WeeklyWorkoutModel
 
-        init(workoutProgramModel: WeeklyWorkoutProgramModel) {
+        init(workoutProgramModel: WeeklyWorkoutModel) {
             self.id = UUID()
             self.workoutProgramModel = workoutProgramModel
         }

@@ -1,5 +1,5 @@
 //
-//  WodInfoModel.swift
+//  ProgramsModel.swift
 //  TCACoreDataSample
 //
 //  Created by Jiwon Yoon on 10/5/24.
@@ -7,32 +7,32 @@
 
 import Foundation
 
-struct WodInfoModel: Equatable {
+struct ProgramsModel: Equatable {
 
     let id: UUID
     let methodType: ProgramMethodType
     let level: LevelType
-    let weeklyWorkoutPrograms: [WeeklyWorkoutProgramModel]
+    let weeklyWorkouts: [WeeklyWorkoutModel]
 
     init(entity: ProgramsEntity) {
         self.id = entity.id
         self.methodType = ProgramMethodType(rawValue: entity.methodType) ?? .body
         self.level = LevelType(rawValue: entity.level) ?? .beginner
-        self.weeklyWorkoutPrograms = entity.weeklyWorkouts.map {
-            WeeklyWorkoutProgramModel(entity: $0)
+        self.weeklyWorkouts = entity.weeklyWorkouts.map {
+            WeeklyWorkoutModel(entity: $0 as! WeeklyWorkoutEntity)
         }
     }
 
-    init(id: UUID, methodType: ProgramMethodType, level: LevelType, weeklyWorkoutPrograms: [WeeklyWorkoutProgramModel]) {
+    init(id: UUID, methodType: ProgramMethodType, level: LevelType, weeklyWorkoutPrograms: [WeeklyWorkoutModel]) {
         self.id = id
         self.methodType = methodType
         self.level = level
-        self.weeklyWorkoutPrograms = weeklyWorkoutPrograms
+        self.weeklyWorkouts = weeklyWorkoutPrograms
     }
 
 }
 
-extension WodInfoModel {
+extension ProgramsModel {
 
     static let mock: Self = .init(id: UUID(), methodType: .body, level: .beginner, weeklyWorkoutPrograms: [
         .init(id: UUID(),

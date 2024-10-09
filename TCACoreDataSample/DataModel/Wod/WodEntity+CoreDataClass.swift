@@ -19,7 +19,7 @@ public class WodEntity: NSManagedObject {
 
 extension WodEntity {
 
-    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WorkOutItemModel]) -> [WodEntity] {
+    static func createWorkoutItemEntity(with context: NSManagedObjectContext, models: [WodModel]) -> [WodEntity] {
         models.map { model in
             let newItem = WodEntity(context: context)
             newItem.id = model.id
@@ -29,12 +29,12 @@ extension WodEntity {
             newItem.unitValue = Int16(model.unitValue)
             newItem.set = Int16(model.set)
             let wodSet = WodSetEntity.createWodSetEntity(with: context, models: model.wodSet)
-            newItem.wodSet = Set(wodSet)
+            newItem.wodSet = NSOrderedSet(array: wodSet)
             return newItem
         }
     }
     
-    static func convertModelToEntity(with context: NSManagedObjectContext, model: WorkOutItemModel) -> WodEntity {
+    static func convertModelToEntity(with context: NSManagedObjectContext, model: WodModel) -> WodEntity {
         let newItem = WodEntity(context: context)
         newItem.id = model.id
         newItem.title = model.title
@@ -42,7 +42,7 @@ extension WodEntity {
         newItem.unit = model.unit.rawValue
         newItem.unitValue = Int16(model.unitValue)
         newItem.set = Int16(model.set)
-        newItem.wodSet = Set(WodSetEntity.createWodSetEntity(with: context, models: model.wodSet))
+        newItem.wodSet = NSOrderedSet(array: WodSetEntity.createWodSetEntity(with: context, models: model.wodSet))
         
         return newItem
     }

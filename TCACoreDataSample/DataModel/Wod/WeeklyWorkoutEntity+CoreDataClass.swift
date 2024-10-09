@@ -21,7 +21,7 @@ public class WeeklyWorkoutEntity: NSManagedObject {
 
 extension WeeklyWorkoutEntity {
 
-    static func createProgramEntities(with context: NSManagedObjectContext, programModel: [WeeklyWorkoutProgramModel]) -> [WeeklyWorkoutEntity] {
+    static func createProgramEntities(with context: NSManagedObjectContext, programModel: [WeeklyWorkoutModel]) -> [WeeklyWorkoutEntity] {
         programModel.map { model in
             let newItem = WeeklyWorkoutEntity(context: context)
             newItem.id = model.id
@@ -32,7 +32,7 @@ extension WeeklyWorkoutEntity {
             newItem.minExpectedCalories = Int16(model.minExpectedCalories)
             newItem.maxExpectedCalories = Int16(model.maxExpectedCalories)
             let workOutInfos = DayWorkoutEntity.createWorkoutInfoEntities(with: context, models: model.workoutInfos)
-            newItem.dayWorkouts = Set(workOutInfos)
+            newItem.dayWorkouts = NSOrderedSet(array: workOutInfos)
             return newItem
         }
     }

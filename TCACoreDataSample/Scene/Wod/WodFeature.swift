@@ -15,7 +15,7 @@ struct WodFeature {
     struct State: Equatable, Identifiable {
         var parentId: UUID
         var id: UUID
-        var workOutInfoModel: WorkOutInfoModel
+        var workOutInfoModel: DayWorkoutModel
 
         init(parentId: UUID, workOutInfoEntity: DayWorkoutEntity) {
             self.parentId = parentId
@@ -23,7 +23,7 @@ struct WodFeature {
             self.workOutInfoModel = .init(entity: workOutInfoEntity)
         }
 
-        init(parentId: UUID, id: UUID, workOutInfoModel: WorkOutInfoModel) {
+        init(parentId: UUID, id: UUID, workOutInfoModel: DayWorkoutModel) {
             self.parentId = parentId
             self.id = UUID()
             self.workOutInfoModel = workOutInfoModel
@@ -42,9 +42,9 @@ struct WodFeature {
         Reduce { state, action in
             switch action {
             case .didTapCompleteButton(let id):
-                for itemIndex in state.workOutInfoModel.workOutItems.indices {
-                    if let setIndex = state.workOutInfoModel.workOutItems[itemIndex].wodSet.firstIndex(where: { $0.id == id }) {
-                        state.workOutInfoModel.workOutItems[itemIndex].wodSet[setIndex].isCompleted.toggle()
+                for itemIndex in state.workOutInfoModel.wods.indices {
+                    if let setIndex = state.workOutInfoModel.wods[itemIndex].wodSet.firstIndex(where: { $0.id == id }) {
+                        state.workOutInfoModel.wods[itemIndex].wodSet[setIndex].isCompleted.toggle()
                     }
                 }
                 
@@ -77,7 +77,7 @@ struct WodView: View {
         WithPerceptionTracking {
             VStack(alignment: .leading) {
                 Text("WodView")
-                ForEach(store.workOutInfoModel.workOutItems) { workOutItem in
+                ForEach(store.workOutInfoModel.wods) { workOutItem in
                     Text(workOutItem.title)
                     ForEach(workOutItem.wodSet.sorted(by: {$0.unitValue < $1.unitValue}), id: \.self) { wodSet in
                         HStack {

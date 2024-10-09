@@ -1,5 +1,5 @@
 //
-//  WorkOutItemModel.swift
+//  WodModel.swift
 //  TCACoreDataSample
 //
 //  Created by Jiwon Yoon on 10/5/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WorkOutItemModel: Equatable, Identifiable {
+struct WodModel: Equatable, Identifiable {
 
     let id: UUID
     let title: String
@@ -24,7 +24,7 @@ struct WorkOutItemModel: Equatable, Identifiable {
         self.unit = ExerciseUnit(rawValue: entity.unit) ?? .seconds
         self.unitValue = Int(entity.unitValue)
         self.set = Int(entity.set)
-        self.wodSet = entity.wodSet.map { WodSetModel(entity: $0) }
+        self.wodSet = entity.wodSet.map { WodSetModel(entity: $0 as! WodSetEntity) }
     }
 
     init(id: UUID, title: String, subTitle: String, unit: ExerciseUnit, unitValue: Int, set: Int, wodSet: [WodSetModel]) {

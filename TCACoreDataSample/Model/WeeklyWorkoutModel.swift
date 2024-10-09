@@ -1,5 +1,5 @@
 //
-//  WeeklyWorkoutProgramModel.swift
+//  WeeklyWorkoutModel.swift
 //  TCACoreDataSample
 //
 //  Created by Jiwon Yoon on 10/5/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeeklyWorkoutProgramModel: Equatable {
+struct WeeklyWorkoutModel: Equatable {
 
     let id: UUID
     let type: WorkOutDayTagType
@@ -16,7 +16,7 @@ struct WeeklyWorkoutProgramModel: Equatable {
     let expectedMinutes: Int
     let minExpectedCalories: Int
     let maxExpectedCalories: Int
-    let workoutInfos: [WorkOutInfoModel]
+    let workoutInfos: [DayWorkoutModel]
 
     init(entity: WeeklyWorkoutEntity) {
         self.id = entity.id
@@ -27,11 +27,11 @@ struct WeeklyWorkoutProgramModel: Equatable {
         self.minExpectedCalories = Int(entity.minExpectedCalories)
         self.maxExpectedCalories = Int(entity.maxExpectedCalories)
         self.workoutInfos = entity.dayWorkouts.map {
-            WorkOutInfoModel(entity: $0)
+            DayWorkoutModel(entity: $0 as! DayWorkoutEntity)
         }
     }
 
-    init(id: UUID, type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalories: Int, maxExpectedCalories: Int, workoutInfos: [WorkOutInfoModel]) {
+    init(id: UUID, type: WorkOutDayTagType, title: String, subTitle: String, expectedMinutes: Int, minExpectedCalories: Int, maxExpectedCalories: Int, workoutInfos: [DayWorkoutModel]) {
         self.id = id
         self.type = type
         self.title = title
@@ -69,7 +69,7 @@ extension WorkOutDayTagType {
 
 
 
-extension WeeklyWorkoutProgramModel {
+extension WeeklyWorkoutModel {
 
     static let preview: Self = .init(id: UUID(),
                                      type: .start,

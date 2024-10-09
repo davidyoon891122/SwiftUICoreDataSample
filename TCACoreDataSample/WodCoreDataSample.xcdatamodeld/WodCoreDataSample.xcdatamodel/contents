@@ -3,13 +3,13 @@
     <entity name="DayWorkoutEntity" representedClassName="DayWorkoutEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="type" attributeType="String"/>
-        <relationship name="wods" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WodEntity"/>
+        <relationship name="wods" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WodEntity"/>
     </entity>
     <entity name="ProgramsEntity" representedClassName="ProgramsEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="level" attributeType="String"/>
         <attribute name="methodType" attributeType="String"/>
-        <relationship name="weeklyWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeeklyWorkoutEntity"/>
+        <relationship name="weeklyWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WeeklyWorkoutEntity"/>
     </entity>
     <entity name="WeeklyWorkoutEntity" representedClassName="WeeklyWorkoutEntity" syncable="YES">
         <attribute name="expectedMinutes" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -19,7 +19,7 @@
         <attribute name="subTitle" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="type" attributeType="String"/>
-        <relationship name="dayWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DayWorkoutEntity"/>
+        <relationship name="dayWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DayWorkoutEntity"/>
     </entity>
     <entity name="WodEntity" representedClassName="WodEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -28,7 +28,7 @@
         <attribute name="title" attributeType="String"/>
         <attribute name="unit" attributeType="String"/>
         <attribute name="unitValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="wodSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WodSetEntity"/>
+        <relationship name="wodSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WodSetEntity"/>
     </entity>
     <entity name="WodSetEntity" representedClassName="WodSetEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

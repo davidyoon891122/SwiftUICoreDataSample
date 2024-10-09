@@ -19,7 +19,7 @@ extension ProgramsEntity {
     @NSManaged public var id: UUID
     @NSManaged public var level: String
     @NSManaged public var methodType: String
-    @NSManaged public var weeklyWorkouts: Set<WeeklyWorkoutEntity>
+    @NSManaged public var weeklyWorkouts: NSOrderedSet
 
 }
 

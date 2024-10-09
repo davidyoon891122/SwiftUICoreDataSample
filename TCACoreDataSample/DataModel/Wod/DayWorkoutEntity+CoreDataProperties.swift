@@ -18,7 +18,7 @@ extension DayWorkoutEntity {
 
     @NSManaged public var id: UUID
     @NSManaged public var type: String
-    @NSManaged public var wods: Set<WodEntity>
+    @NSManaged public var wods: NSOrderedSet
 
 }
 

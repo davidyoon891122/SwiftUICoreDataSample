@@ -21,13 +21,13 @@ public class ProgramsEntity: NSManagedObject {
 
 extension ProgramsEntity {
 
-    static func instance(with context: NSManagedObjectContext, model: WodInfoModel) -> ProgramsEntity {
+    static func instance(with context: NSManagedObjectContext, model: ProgramsModel) -> ProgramsEntity {
         let newWodInfoEntity = ProgramsEntity(context: context)
         newWodInfoEntity.id = model.id
         newWodInfoEntity.level = model.level.rawValue
         newWodInfoEntity.methodType = model.methodType.rawValue
-        let weeklyWorkoutProgram = WeeklyWorkoutEntity.createProgramEntities(with: context, programModel: model.weeklyWorkoutPrograms)
-        newWodInfoEntity.weeklyWorkouts = Set(weeklyWorkoutProgram)
+        let weeklyWorkoutProgram = WeeklyWorkoutEntity.createProgramEntities(with: context, programModel: model.weeklyWorkouts)
+        newWodInfoEntity.weeklyWorkouts = NSOrderedSet(array: weeklyWorkoutProgram)
 
         return newWodInfoEntity
     }
