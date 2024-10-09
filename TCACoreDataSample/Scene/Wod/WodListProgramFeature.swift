@@ -19,7 +19,7 @@ struct WodListProgramFeature {
 
     enum Action {
         case onAppear
-        case wodProgramActions(id: WodProgramFeature.State.ID, action: WodProgramFeature.Action)
+        case wodProgramActions(IdentifiedActionOf<WodProgramFeature>)
         case getAllProgramStates(Result<[WodProgramFeature.State], Error>)
         case didTapAddProgramButton
         case wodAddResponse(Result<[WodProgramFeature.State], Error>)
@@ -43,6 +43,10 @@ struct WodListProgramFeature {
                         await send(.getAllProgramStates(.failure(error)))
                     }
                 }
+
+            case .wodProgramActions(.element(id: let id, action: .didTapComplete)):
+                print("id: \(id) send tapped action to the parent")
+                return .none
             case .wodProgramActions:
                 return .none
 
@@ -122,12 +126,15 @@ struct WodListProgramView: View {
                     }, label: {
                         Text("Remove")
                     })
-                    List {
-                        ForEachStore(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { programStore in
-                            WodProgramView(store: programStore)
-                                .onTapGesture {
-                                    store.send(.didTapProgramView(programStore.workoutProgramModel.id))
-                                }
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { programStore in
+                                WodProgramView(store: programStore)
+                                    .onTapGesture {
+                                        store.send(.didTapProgramView(programStore.workoutProgramModel.id))
+                                    }
+                                    .padding()
+                            }
                         }
                     }
                 }
