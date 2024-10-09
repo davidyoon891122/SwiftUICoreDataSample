@@ -48,8 +48,12 @@ struct WodProgramView: View {
     let store: StoreOf<WodProgramFeature>
 
     var body: some View {
-        VStack {
-            Text("WodProgram")
+        HStack {
+            Text(store.workoutProgramModel.type.rawValue)
+            VStack(alignment: .leading) {
+                Text(store.workoutProgramModel.title)
+                Text(store.workoutProgramModel.subTitle)
+            }
         }
     }
 
