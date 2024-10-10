@@ -21,6 +21,11 @@ struct RecentActivityFeature {
             self.recentCompletedWodModel = recentCompletedWodModel
         }
         
+        init(entity: RecentCompletedWodEntity) {
+            self.id = entity.id
+            self.recentCompletedWodModel = .init(entity: entity)
+        }
+        
     }
     
     enum Action {

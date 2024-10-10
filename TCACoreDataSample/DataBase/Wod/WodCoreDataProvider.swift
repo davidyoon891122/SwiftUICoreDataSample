@@ -100,10 +100,13 @@ final class WodCoreDataProvider {
 
 
     // RecentCompletedWods
-
-//    func getRecentWodsStates() throws -> {
-//
-//    }
+    func getRecentWodsStates() throws -> [RecentActivityFeature.State]{
+        let result = try fetchRecentCompletedWods()
+        
+        return result.map {
+            RecentActivityFeature.State.init(entity: $0)
+        }
+    }
 
 }
 

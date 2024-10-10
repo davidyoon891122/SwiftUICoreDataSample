@@ -19,6 +19,7 @@ struct RecentActivityListFeature {
     enum Action {
         case onAppear
         case recentActivityActions(IdentifiedActionOf<RecentActivityFeature>)
+        case getAllRecentStates(Result<[RecentActivityFeature.State], Error>)
     }
 
     
@@ -28,8 +29,22 @@ struct RecentActivityListFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .none
+                return .run { send in
+                    do {
+                        let recentStates = try wodClient.recentCompletedWodStates()
+                        await send(.getAllRecentStates(.success(recentStates)))
+                    } catch {
+                        await send(.getAllRecentStates(.failure(error)))
+                    }
+                    
+                }
             case .recentActivityActions:
+                return .none
+            case .getAllRecentStates(.success(let result)):
+                state.recentActivityState = IdentifiedArray(uniqueElements: result)
+                return .none
+            case .getAllRecentStates(.failure(let error)):
+                print(error)
                 return .none
             }
         }

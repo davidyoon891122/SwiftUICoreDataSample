@@ -14,6 +14,7 @@ struct WodClient {
     var wodStates: (UUID) throws -> [WodFeature.State]
     var updateStates: (UUID, WodFeature.State) throws -> UpdateWodResponse
     var removeWodProgram: () throws -> RemoveWodResponse
+    var recentCompletedWodStates: () throws -> [RecentActivityFeature.State]
 }
 
 extension WodClient: DependencyKey {
@@ -28,6 +29,8 @@ extension WodClient: DependencyKey {
         try WodCoreDataProvider.shared.updateWodState(id: id, wodState: state)
     }, removeWodProgram: {
         try WodCoreDataProvider.shared.removeWodInfoEntity()
+    }, recentCompletedWodStates: {
+        try WodCoreDataProvider.shared.getRecentWodsStates()
     })
 
 }
