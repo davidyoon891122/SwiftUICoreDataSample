@@ -48,10 +48,7 @@ struct WodListProgramFeature {
                 return .none
             case .wodProgramActions(.element(id: let id, action: .didTapWod)):
                 guard let workoutProgramModel = state.wodProgramStates[id: id]?.workoutProgramModel else { return .none }
-                
-                print(workoutProgramModel)
-                
-                state.path.append(WodListFeature.State(id: id, title: workoutProgramModel.title))
+                state.path.append(WodListFeature.State(id: id, weekylyWorkoutModel: workoutProgramModel))
                 return .none
             case .wodProgramActions:
                 return .none

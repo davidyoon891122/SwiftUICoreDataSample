@@ -32,8 +32,10 @@ struct WodFeature {
     }
 
     enum Action {
-        case didTapCompleteButton(UUID)
+        case didTapCompleteButton(UUID, UUID)
         case updateWodResponse(Result<UpdateWodResponse, Error>)
+        case checkAllWodCompleted(DayWorkoutModel)
+        case saveRecentWod
     }
     
     @Dependency(\.wodClient) var wodClient
@@ -41,18 +43,21 @@ struct WodFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .didTapCompleteButton(let id):
-                for itemIndex in state.workOutInfoModel.wods.indices {
-                    if let setIndex = state.workOutInfoModel.wods[itemIndex].wodSet.firstIndex(where: { $0.id == id }) {
-                        state.workOutInfoModel.wods[itemIndex].wodSet[setIndex].isCompleted.toggle()
-                    }
-                }
+            case .didTapCompleteButton(let wodId, let wodSetId):
                 
-                let updatedWod = WodFeature.State(parentId: state.id, id: id, workOutInfoModel: state.workOutInfoModel)
-                print("didTapSetButton: \(id)")
-                return .run { [id = state.parentId] send in
+                guard let wodIndex = state.workOutInfoModel.wods.firstIndex(where: { $0.id == wodId }),
+                      let wodSetIndex = state.workOutInfoModel.wods[wodIndex].wodSet.firstIndex(where: { $0.id == wodSetId })
+                else { return .none }
+                
+                state.workOutInfoModel.wods[wodIndex].wodSet[wodSetIndex].isCompleted.toggle()
+                
+                let updatedWod = WodFeature.State(parentId: state.id, id: wodSetId, workOutInfoModel: state.workOutInfoModel)
+                
+                return .run { [id = state.parentId, model = state.workOutInfoModel] send in
                     do {
                         let result = try wodClient.updateStates(id, updatedWod)
+                        
+                        await send(.checkAllWodCompleted(model))
                     } catch {
                         
                     }
@@ -60,6 +65,17 @@ struct WodFeature {
             case .updateWodResponse(.success(let response)):
                 return .none
             case .updateWodResponse(.failure(let error)):
+                return .none
+            case .checkAllWodCompleted(let dayWodModel):
+                if dayWodModel.wods.allSatisfy({ $0.wodSet.allSatisfy { $0.isCompleted }}) {
+                    return .run { send in
+                        await send(.saveRecentWod)
+                    }
+                }
+                
+                
+                return .none
+            case .saveRecentWod:
                 return .none
             }
         }
@@ -76,7 +92,7 @@ struct WodView: View {
     var body: some View {
         WithPerceptionTracking {
             VStack(alignment: .leading) {
-                Text("WodView")
+                Text("\(store.workOutInfoModel.type.title)")
                 ForEach(store.workOutInfoModel.wods) { workOutItem in
                     Text(workOutItem.title)
                     ForEach(workOutItem.wodSet.sorted(by: {$0.unitValue < $1.unitValue}), id: \.self) { wodSet in
@@ -84,7 +100,7 @@ struct WodView: View {
                             Text("\(wodSet.unitValue)")
                             Spacer()
                             Button(action: {
-                                store.send(.didTapCompleteButton(wodSet.id))
+                                store.send(.didTapCompleteButton(workOutItem.id, wodSet.id))
                             }, label: {
                                 wodSet.isCompleted ? Image(systemName: "circle") : Image(systemName: "xmark")
                             })

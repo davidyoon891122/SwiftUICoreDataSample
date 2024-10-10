@@ -81,7 +81,6 @@ final class WodCoreDataProvider {
         guard let objectID = targetWodProgram.dayWorkouts.compactMap({ $0 as? DayWorkoutEntity }).filter({ $0.id == wodState.workOutInfoModel.id }).first?.objectID,
         let workoutInfoEntity = context.object(with: objectID) as? DayWorkoutEntity else { return .init(updatedWod: nil, allWods: [])}
         
-        workoutInfoEntity.type = "ModifiedType"
         workoutInfoEntity.wods = NSOrderedSet(array: wodState.workOutInfoModel.wods.map {
             WodEntity.convertModelToEntity(with: context, model: $0)
         })
@@ -108,8 +107,11 @@ final class WodCoreDataProvider {
         }
     }
     
-    func saveRecentWods(data: WodFeature.State) throws {
-        let today = Date().currentStringDate
+    func saveRecentWods(data: RecentCompletedWodModel) throws {
+        let _ = RecentCompletedWodEntity.instance(with: context, model: data)
+        
+        try context.save()
+        print("saveRecentWods:\(data)")
  
     }
 

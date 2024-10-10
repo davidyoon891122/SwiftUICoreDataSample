@@ -14,8 +14,13 @@ struct WodListFeature {
     @ObservableState
     struct State: Equatable {
         let id: UUID
-        let title: String
+        let weekylyWorkoutModel: WeeklyWorkoutModel
         var wodStates: IdentifiedArrayOf<WodFeature.State> = []
+        var isCompleted: Bool {
+            get {
+                wodStates.allSatisfy { $0.workOutInfoModel.wods.allSatisfy { $0.wodSet.allSatisfy { $0.isCompleted }}}
+            }
+        }
     }
 
     enum Action {
@@ -38,9 +43,17 @@ struct WodListFeature {
                         await send(.getAllWodStates(.failure(error)))
                     }
                 }
+            case .wodActions(.element(id: let id, action: .saveRecentWod)):
+                let model = RecentCompletedWodModel(id: UUID(), title: state.weekylyWorkoutModel.title, date: Date().currentStringDate, duration: 980002, weeklyWorkout: state.weekylyWorkoutModel)
+                return .run { send in
+                    do {
+                        try wodClient.saveRecentWods(model)
+                    } catch {
+                        
+                    }
+                }
             case .wodActions:
                 return .none
-
             case .getAllWodStates(.success(let wodStates)):
                 state.wodStates = IdentifiedArray(uniqueElements: wodStates)
                 return .none
@@ -67,20 +80,21 @@ struct WodListView: View {
                 VStack {
                     ForEach(store.scope(state: \.wodStates, action: \.wodActions)) { store in
                         WodView(store: store)
-                    }                    
+                        Divider()
+                    }
                 }
             }
         }
         .onAppear {
             store.send(.onAppear)
         }
-        .navigationTitle(store.state.title)
+        .navigationTitle(store.state.weekylyWorkoutModel.title)
     }
 
 }
 
 #Preview {
-    WodListView(store: Store(initialState: WodListFeature.State(id: UUID(), title: "Title")) {
+    WodListView(store: Store(initialState: WodListFeature.State(id: UUID(), weekylyWorkoutModel: .preview)) {
         WodListFeature()
     })
 }

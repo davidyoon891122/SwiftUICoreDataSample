@@ -17,7 +17,7 @@ extension WeeklyWorkoutEntity {
     }
 
     @NSManaged public var id: UUID
-    @NSManaged public var expectedMinutes: Int16
+    @NSManaged public var expectedMinutes: Int64
     @NSManaged public var maxExpectedCalories: Int16
     @NSManaged public var minExpectedCalories: Int16
     @NSManaged public var subTitle: String

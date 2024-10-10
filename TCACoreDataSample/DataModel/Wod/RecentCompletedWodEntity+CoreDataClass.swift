@@ -11,5 +11,10 @@ import CoreData
 
 @objc(RecentCompletedWodEntity)
 public class RecentCompletedWodEntity: NSManagedObject {
-
+    
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.id = UUID()
+    }
+    
 }

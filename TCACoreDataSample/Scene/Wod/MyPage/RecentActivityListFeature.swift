@@ -67,6 +67,9 @@ struct RecentActivityListView: View {
                 RecentActivityView(store: store)
             }
         }
+        .onAppear {
+            store.send(.onAppear)
+        }
     }
     
 }
