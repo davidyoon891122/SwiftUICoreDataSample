@@ -20,6 +20,8 @@ struct RecentActivityListFeature {
         case onAppear
         case recentActivityActions(IdentifiedActionOf<RecentActivityFeature>)
         case getAllRecentStates(Result<[RecentActivityFeature.State], Error>)
+        case deleteRecentHistory
+        case reloadRecentHistory
     }
 
     
@@ -46,6 +48,19 @@ struct RecentActivityListFeature {
             case .getAllRecentStates(.failure(let error)):
                 print(error)
                 return .none
+            case .deleteRecentHistory:
+                return .run { send in
+                    do {
+                        try wodClient.removeRecentHistory()
+                        
+                        await send(.reloadRecentHistory)
+                    } catch {
+                        
+                    }
+                }
+            case .reloadRecentHistory:
+                state.recentActivityState = []
+                return .none
             }
         }
         .forEach(\.recentActivityState, action: \.recentActivityActions) {
@@ -62,7 +77,15 @@ struct RecentActivityListView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("최근 활동")
+            HStack {
+                Text("최근 활동")
+                Spacer()
+                Button(action: {
+                    store.send(.deleteRecentHistory)
+                }, label: {
+                    Text("모두삭제")
+                })
+            }
             ForEach(store.scope(state: \.recentActivityState, action: \.recentActivityActions)) { store in
                 RecentActivityView(store: store)
             }

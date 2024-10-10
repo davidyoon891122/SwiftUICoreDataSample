@@ -114,6 +114,17 @@ final class WodCoreDataProvider {
         print("saveRecentWods:\(data)")
  
     }
+    
+    func removeRecentWods() throws {
+        let savedWods = try fetchRecentCompletedWods()
+        
+        savedWods.forEach {
+            let item = context.object(with: $0.objectID)
+            context.delete(item)
+        }
+        
+        try context.save()
+    }
 
 }
 

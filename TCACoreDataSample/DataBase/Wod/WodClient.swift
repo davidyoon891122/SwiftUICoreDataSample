@@ -16,6 +16,7 @@ struct WodClient {
     var removeWodProgram: () throws -> RemoveWodResponse
     var recentCompletedWodStates: () throws -> [RecentActivityFeature.State]
     var saveRecentWods: (RecentCompletedWodModel) throws -> Void
+    var removeRecentHistory: () throws -> Void
 }
 
 extension WodClient: DependencyKey {
@@ -34,6 +35,8 @@ extension WodClient: DependencyKey {
         try WodCoreDataProvider.shared.getRecentWodsStates()
     }, saveRecentWods: { model in
         try WodCoreDataProvider.shared.saveRecentWods(data: model)
+    }, removeRecentHistory: {
+        try WodCoreDataProvider.shared.removeRecentWods()
     })
 
 }
