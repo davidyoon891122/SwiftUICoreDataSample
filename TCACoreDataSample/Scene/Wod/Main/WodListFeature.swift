@@ -14,6 +14,7 @@ struct WodListFeature {
     @ObservableState
     struct State: Equatable {
         let id: UUID
+        let title: String
         var wodStates: IdentifiedArrayOf<WodFeature.State> = []
     }
 
@@ -73,12 +74,13 @@ struct WodListView: View {
         .onAppear {
             store.send(.onAppear)
         }
+        .navigationTitle(store.state.title)
     }
 
 }
 
 #Preview {
-    WodListView(store: Store(initialState: WodListFeature.State(id: UUID())) {
+    WodListView(store: Store(initialState: WodListFeature.State(id: UUID(), title: "Title")) {
         WodListFeature()
     })
 }

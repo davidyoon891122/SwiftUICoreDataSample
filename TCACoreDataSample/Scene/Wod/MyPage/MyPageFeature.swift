@@ -32,11 +32,39 @@ struct MyPageFeature {
 
 import SwiftUI
 struct MyPageView: View {
+    
+    let store: StoreOf<MyPageFeature>
 
     var body: some View {
-        VStack {
-            Text("MyPage")
+        ScrollView {
+            VStack {
+                HStack {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .frame(width: 50.0, height: 50.0)
+                    VStack(alignment: .leading) {
+                        Text("Username")
+                        Text("초급")
+                            .foregroundStyle(.gray)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                }
+                .padding()
+                
+                Color
+                    .blue
+                    .frame(height: 400.0)
+                    .padding(.horizontal)
+                
+                RecentActivityListView(store: .init(initialState: RecentActivityListFeature.State()) {
+                    RecentActivityListFeature()
+                })
+            }
         }
+            
     }
 
 }
+
+

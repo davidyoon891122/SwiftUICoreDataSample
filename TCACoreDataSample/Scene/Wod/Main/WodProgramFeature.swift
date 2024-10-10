@@ -22,12 +22,12 @@ struct WodProgramFeature {
         }
 
         init(workoutProgramModel: WeeklyWorkoutModel) {
-            self.id = UUID()
+            self.id = workoutProgramModel.id
             self.workoutProgramModel = workoutProgramModel
         }
 
         init(workoutProgramEntity: WeeklyWorkoutEntity) {
-            self.id = UUID()
+            self.id = workoutProgramEntity.id
             self.workoutProgramModel = .init(entity: workoutProgramEntity)
         }
 
@@ -35,13 +35,15 @@ struct WodProgramFeature {
 
     enum Action {
         case didTapComplete
+        case didTapWod
     }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .didTapComplete:
-                
+                return .none
+            case .didTapWod:
                 return .none
             }
         }
@@ -68,6 +70,10 @@ struct WodProgramView: View {
                 }, label: {
                     Image(systemName: store.isCompleted ? "circle" : "xmark")
                 })
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                store.send(.didTapWod)
             }
         }
     }

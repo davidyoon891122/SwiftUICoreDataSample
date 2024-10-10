@@ -24,7 +24,6 @@ struct WodListProgramFeature {
         case didTapAddProgramButton
         case wodAddResponse(Result<[WodProgramFeature.State], Error>)
         case path(StackAction<WodListFeature.State, WodListFeature.Action>)
-        case didTapProgramView(UUID)
         case remove
         case removeWodProgram(Result<[WodProgramFeature.State], Error>)
     }
@@ -46,6 +45,13 @@ struct WodListProgramFeature {
 
             case .wodProgramActions(.element(id: let id, action: .didTapComplete)):
                 print("id: \(id) send tapped action to the parent")
+                return .none
+            case .wodProgramActions(.element(id: let id, action: .didTapWod)):
+                guard let workoutProgramModel = state.wodProgramStates[id: id]?.workoutProgramModel else { return .none }
+                
+                print(workoutProgramModel)
+                
+                state.path.append(WodListFeature.State(id: id, title: workoutProgramModel.title))
                 return .none
             case .wodProgramActions:
                 return .none
@@ -75,9 +81,6 @@ struct WodListProgramFeature {
                 state.wodProgramStates = []
                 return .none
             case .path:
-                return .none
-            case .didTapProgramView(let uuid):
-                state.path.append(WodListFeature.State(id: uuid))
                 return .none
             case .remove:
                 return .run { send in
@@ -130,9 +133,6 @@ struct WodListProgramView: View {
                         LazyVStack {
                             ForEach(store.scope(state: \.wodProgramStates, action: \.wodProgramActions)) { programStore in
                                 WodProgramView(store: programStore)
-                                    .onTapGesture {
-                                        store.send(.didTapProgramView(programStore.workoutProgramModel.id))
-                                    }
                                     .padding()
                             }
                         }

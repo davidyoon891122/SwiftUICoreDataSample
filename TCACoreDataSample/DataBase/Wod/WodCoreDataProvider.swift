@@ -107,6 +107,11 @@ final class WodCoreDataProvider {
             RecentActivityFeature.State.init(entity: $0)
         }
     }
+    
+    func saveRecentWods(data: WodFeature.State) throws {
+        let today = Date().currentStringDate
+ 
+    }
 
 }
 

@@ -14,7 +14,16 @@ struct ContentView: View {
     var body: some View {
         WithPerceptionTracking {
 //            UserListView(store: TCACoreDataSampleApp.store)
-            WodListProgramView(store: TCACoreDataSampleApp.wodStore)
+            TabView {
+                WodListProgramView(store: TCACoreDataSampleApp.wodStore)
+                    .tabItem {
+                        Text("Main")
+                    }
+                MyPageView(store: TCACoreDataSampleApp.mypPageStore)
+                    .tabItem {
+                        Text("MyPage")
+                    }
+            }
         }
     }
 

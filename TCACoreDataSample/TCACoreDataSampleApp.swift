@@ -18,6 +18,10 @@ struct TCACoreDataSampleApp: App {
     static let wodStore = Store(initialState: WodListProgramFeature.State()) {
         WodListProgramFeature()
     }
+    
+    static let mypPageStore = Store(initialState: MyPageFeature.State()) {
+        MyPageFeature()
+    }
 
     var body: some Scene {
         WindowGroup {
